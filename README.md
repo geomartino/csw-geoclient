@@ -1,7 +1,11 @@
-csw-geoclient
+CSW Geo Client
 =============
 
 A simple CSW client/catalog with spatially enabled search
 
-developed by ....
-during Défi GeoHack Montreal 2013
+
+Powered by: Défi GeoHack Montreal 2013
+
+Credits:
+https://github.com/bmcbride/bootleaf
+cswClient.php

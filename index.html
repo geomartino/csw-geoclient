@@ -282,6 +282,8 @@
         var map, boroughSearch = [], theaterSearch = [], museumSearch = [];
 
         $(document).ready(function() {
+            $('#loading').hide();
+          
             $('[rel=tooltip]').tooltip();
             if (document.body.clientWidth <= 767) {
                 $('#sidebar').toggle();
