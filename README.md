@@ -8,7 +8,9 @@ Défi GeoHack Montreal 2013
 Nicolas Gignac
 Stefano Biondo
 Martin Ouellet
+??????
 
 Credits:
-https://github.com/bmcbride/bootleaf
-cswClient.php
+Responsive layout     https://github.com/bmcbride/bootleaf
+Autocomplete widget   http://twitter.github.io/typeahead.js/
+cswClient.php         http://trac.osgeo.org/geonetwork/wiki/HowToDoCSWTransactionOperations   
