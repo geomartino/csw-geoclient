@@ -186,9 +186,10 @@
             </ul>
 
             <div class="tab-content" style="padding-top: 10px;">
+                
                 <div class="tab-pane active" id="layers">
                     <div class="panel-group">
-                        <div class="panel panel-default">
+                        <div class="panel panel-default" style="display: none;">
                             <div class="panel-heading">
                                 <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#overlay-layers">
                                     Overlay Layers
@@ -208,7 +209,7 @@
                                             Subway Lines
                                         </label>
                                     </div>
-                                    <div class="checkbox">
+                                    <!--div class="checkbox">
                                         <label>
                                             <input type="checkbox" name="overlayLayers" id="theaters" z-index="3" checked>
                                             Theaters&nbsp;<img src='img/theater.png' width='24' height='28'>
@@ -219,7 +220,7 @@
                                             <input type="checkbox" name="overlayLayers" id="museums" z-index="3">
                                             Museums&nbsp;<img src='img/museum.png' width='24' height='28'>
                                         </label>
-                                    </div>
+                                    </div-->
                                 </div>
                             </div>
                         </div>
@@ -255,7 +256,7 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="help">
-                    Filtres...
+                    
                 </div>
             </div>
         </div>
@@ -269,142 +270,9 @@
             </div>
         </div>
     </div>
-    <a href="#" type="button" rel="tooltip" class="toggle btn btn-default" data-toggle="tooltip" data-placement="right" title="Toggle sidebar"><i class="icon-chevron-left"></i></a>
-
-    <div class="modal fade" id="aboutModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Welcome to the BootLeaf Sidebar template!</h4>
-                </div>
-
-                <div class="modal-body">
-                     <ul id="aboutTabs" class="nav nav-tabs">
-                        <li class="active"><a href="#about" data-toggle="tab"><i class="icon-question-sign"></i>&nbsp;About the project</a></li>
-                        <li><a href="#disclaimer" data-toggle="tab"><i class="icon-exclamation-sign"></i>&nbsp;Disclaimer</a></li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe"></i>&nbsp;Metadata <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#boroughs-tab" data-toggle="tab">Boroughs</a></li>
-                                <li><a href="#subway-lines-tab" data-toggle="tab">Subway Lines</a></li>
-                                <li><a href="#theaters-tab" data-toggle="tab">Theaters</a></li>
-                                <li><a href="#museums-tab" data-toggle="tab">Museums</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                    <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
-                        <div class="tab-pane fade active in" id="about">
-                            <p>A simple template for building web mapping applications with <a href="http://getbootstrap.com/">Bootstrap 3</a> and <a href="http://leafletjs.com/" target="_blank">Leaflet</a>.</p>
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
-                                    Features
-                                </div>
-                                <ul class="list-group">
-                                    <li class="list-group-item">Fullscreen mobile-friendly map template with responsive navbar, sidebar, and modal placeholders</li>
-                                    <li class="list-group-item">jQuery loading of external GeoJSON files</li>
-                                    <li class="list-group-item">Elegant client-side multi-layer feature search with autocomplete using <a href="http://twitter.github.io/typeahead.js/" target="_blank">typeahead.js</a></li>
-                                    <li class="list-group-item">Integration of Bootstrap tables into Leaflet popups</li>
-                                    <li class="list-group-item">Logic for minimizing Sidebar and removing scale control on small screens</li>
-                                    <li class="list-group-item">Custom layer control with functions for defining and retaining vector z-index when toggling layer visibility.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade text-danger" id="disclaimer">
-                            <p>The data provided on this site is for informational and planning purposes only.</p>
-                            <p>Absolutely no accuracy or completeness guarantee is implied or intended. All information on this map is subject to such variations and corrections as might result from a complete title search and/or accurate field survey.</p>
-                        </div>
-                        <div class="tab-pane fade" id="boroughs-tab">
-                            <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/html/bytes/meta_dis_nyboroughwi.shtml" target="_blank">New York City Department of City Planning</a></p>
-                        </div>
-                        <div class="tab-pane fade" id="subway-lines-tab">
-                            <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
-                        </div>
-                        <div class="tab-pane fade" id="theaters-tab">
-                            <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
-                        </div>
-                        <div class="tab-pane fade" id="museums-tab">
-                            <p>Museum data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div class="modal fade" id="contactModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Contact Us!</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="contact-form">
-                        <fieldset>
-                            <div class="form-group">
-                                <label for="name">Name:</label>
-                                <input type="text" class="form-control" id="name">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email:</label>
-                                <input type="text" class="form-control" id="email">
-                            </div>
-                            <div class="form-group">
-                                <label for="comment">Comment:</label>
-                                <textarea class="form-control" rows="3" id="comment"></textarea>
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Submit</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div class="modal fade" id="legendModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Map Legend</h4>
-                </div>
-                <div class="modal-body">
-                    <p>Map Legend goes here...</p>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-
-    <div class="modal fade" id="loginModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Login</h4>
-                </div>
-                <div class="modal-body">
-                    <form id="contact-form">
-                        <fieldset>
-                            <div class="form-group">
-                                <label for="name">Username:</label>
-                                <input type="text" class="form-control" id="username">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Password:</label>
-                                <input type="password" class="form-control" id="password">
-                            </div>
-                        </fieldset>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Login</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+    
+    <!-- BOUTON POUR TOGGLÉ ENTRE LA LISTE DES RESULTATS ET LA MAP-->
+    <a id="flip" href="#" type="button" rel="tooltip" class="toggle btn btn-default" data-toggle="tooltip" data-placement="right" title="Carte"><i class="icon-globe"></i></a>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
@@ -417,7 +285,9 @@
             $('[rel=tooltip]').tooltip();
             if (document.body.clientWidth <= 767) {
                 $('#sidebar').toggle();
-                $('a.toggle i').toggleClass('icon-chevron-left icon-chevron-right');
+                
+                $('[rel=tooltip]').tooltip( "option", "content", "Show Post - test1" );
+                $('a.toggle i').toggleClass('icon-globe icon-list');
             };
         });
         $(window).resize(function() {
@@ -425,9 +295,10 @@
         });
 
         $('a.toggle').click(function() {
-            $('a.toggle i').toggleClass('icon-chevron-left icon-chevron-right');
+            $('a.toggle i').toggleClass('icon-globe icon-list');
             $('#map').toggleClass('col-sm-9 col-lg-9 col-sm-12 col-lg-12');
             $('#sidebar').toggle();
+            $('[rel=tooltip]').tooltip( "option", "content", "Show Post - test2" );
             map.invalidateSize();
             return false;
         });
@@ -510,11 +381,11 @@
                 boroughSearch.push({value: layer.feature.properties.BoroName, tokens: [layer.feature.properties.BoroName], layer: 'Boroughs', id: layer._leaflet_id, bounds: layer.getBounds()});
             }
         });
-        $.getJSON("data/boroughs.geojson", function (data) {
-            boroughs.addData(data);
-        }).complete(function () {
-            map.fitBounds(boroughs.getBounds());
-        });
+        //$.getJSON("data/boroughs.geojson", function (data) {
+        //    boroughs.addData(data);
+        //}).complete(function () {
+        //    map.fitBounds(boroughs.getBounds());
+        //});
 
         var subwayLines = L.geoJson(null, {
             style: function (feature) {
@@ -624,9 +495,10 @@
                 });
             }
         });
-        $.getJSON("data/subways.geojson", function (data) {
-            subwayLines.addData(data);
-        });
+        
+        //$.getJSON("data/subways.geojson", function (data) {
+        //    subwayLines.addData(data);
+        //});
 
         var theaters = L.geoJson(null, {
             pointToLayer: function (feature, latlng) {
@@ -663,9 +535,9 @@
                 }
             }
         });
-        $.getJSON("data/DOITT_THEATER_01_13SEPT2010.geojson", function (data) {
-            theaters.addData(data);
-        });
+        //$.getJSON("data/DOITT_THEATER_01_13SEPT2010.geojson", function (data) {
+        //    theaters.addData(data);
+        //});
 
         var museums = L.geoJson(null, {
             pointToLayer: function (feature, latlng) {
@@ -702,9 +574,9 @@
                 }
             }
         });
-        $.getJSON("data/DOITT_MUSEUM_01_13SEPT2010.geojson", function (data) {
-            museums.addData(data);
-        });
+        //$.getJSON("data/DOITT_MUSEUM_01_13SEPT2010.geojson", function (data) {
+        //    museums.addData(data);
+        //});
 
         map = L.map("map", {
             zoom: 10,
@@ -751,7 +623,8 @@
         // Typeahead search functionality
         $(document).one("ajaxStop", function() {
             $('#loading').hide();
-            $('#searchbox').typeahead([{
+            $('#searchbox').typeahead([
+            /*{
                 name: 'Boroughs',
                 local: boroughSearch,
                 minLength: 2,
@@ -768,7 +641,8 @@
                 minLength: 2,
                 limit: 10,
                 header: '<h4 class="typeahead-header"><img src="img/museum.png" width="24" height="28">&nbsp;Museums</h4>'
-            },{
+            },*/
+             {
                 name: 'GeoNames',
                 remote: {
                     url: 'http://ws.geonames.org/searchJSON?featureClass=P&maxRows=5&countryCode=US&name_startsWith=%QUERY',
