@@ -3,6 +3,9 @@ CSW Geo Client
 
 A simple CSW client/catalog with spatially enabled search
 
+DEMO:
+http://geomartino.github.io/csw-geoclient/
+
 Powered by:
 Défi GeoHack Montreal 2013
 Nicolas Gignac
