@@ -624,7 +624,7 @@
 
         // Typeahead search functionality
         //$(document).one("ajaxStop", function() {
-            $('#loading').hide();
+            //$('#loading').hide();
             $('#searchbox').typeahead([
             /*{
                 name: 'Boroughs',
@@ -649,7 +649,7 @@
                 remote: {
                     url: 'http://ws.geonames.org/searchJSON?featureClass=P&maxRows=5&countryCode=CA&name_startsWith=%QUERY',
                     beforeSend: function(jqXhr, settings) {
-                        settings.url += '&east='+map.getBounds().getEast()+'&west='+map.getBounds().getWest()+'&north='+map.getBounds().getNorth()+'&south='+map.getBounds().getSouth();
+                        //settings.url += '&east='+map.getBounds().getEast()+'&west='+map.getBounds().getWest()+'&north='+map.getBounds().getNorth()+'&south='+map.getBounds().getSouth();
                     },
                     filter: function(parsedResponse) {
                         var dataset = [];
