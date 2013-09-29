@@ -581,8 +581,8 @@
         //});
 
         map = L.map("map", {
-            zoom: 10,
-            center: new L.LatLng(40.702222048446004, -73.979378),
+            zoom: 5,
+            center: new L.LatLng(52, -72),
             layers: [mapquestOSM, boroughs, subwayLines, theaters]
         });
         // Hack to preserver layer order in Layer control
@@ -647,7 +647,7 @@
              {
                 name: 'GeoNames',
                 remote: {
-                    url: 'http://ws.geonames.org/searchJSON?featureClass=P&maxRows=5&countryCode=US&name_startsWith=%QUERY',
+                    url: 'http://ws.geonames.org/searchJSON?featureClass=P&maxRows=5&countryCode=CA&name_startsWith=%QUERY',
                     beforeSend: function(jqXhr, settings) {
                         settings.url += '&east='+map.getBounds().getEast()+'&west='+map.getBounds().getWest()+'&north='+map.getBounds().getNorth()+'&south='+map.getBounds().getSouth();
                     },
