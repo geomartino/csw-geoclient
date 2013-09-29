@@ -623,6 +623,7 @@
         });
 
         // Typeahead search functionality
+        //enable search right away because no data is laoding right now...
         //$(document).one("ajaxStop", function() {
             //$('#loading').hide();
             $('#searchbox').typeahead([
@@ -667,7 +668,7 @@
                 },
                 minLength: 2,
                 limit: 5,
-                header: '<h4 class="typeahead-header"><img src="img/globe.png" width="25" height="25">&nbsp;GeoNames Places</h4>'
+                header: '<h4 class="typeahead-header"><img src="img/globe.png" width="25" height="25">&nbsp;GeoNames</h4>'
               }]).on('typeahead:selected', function (obj, datum) {
                 if (datum.layer === 'Boroughs') {
                     map.fitBounds(datum.bounds);
