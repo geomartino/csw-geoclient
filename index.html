@@ -197,8 +197,10 @@
 
             <div class="tab-content" style="padding-top: 10px;">
                 <div class="tab-pane active" id="layers">
-                    
+                  <div id="records">    
+                  </div>
                 </div>
+                
                 <div class="tab-pane" id="help">
                     <div class="btn-group-vertical">
       <ul class="nav nav-pills">
@@ -399,6 +401,7 @@
           var bounds = map.getExtent();
           var latlonProjection = new OpenLayers.Projection('EPSG:4326');
           var latlonBounds  = bounds.transform(map.getProjectionObject(), latlonProjection);
+          $("#records").html(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
           //alert(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4))
         };
   
