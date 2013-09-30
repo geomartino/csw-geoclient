@@ -282,7 +282,7 @@
     </div>
     
     <!-- BOUTON POUR TOGGLÉ ENTRE LA LISTE DES RESULTATS ET LA MAP-->
-    <a id="flip" href="#" type="button" rel="tooltip" class="toggle btn btn-default" data-toggle="tooltip" data-placement="right" title="Carte"><i class="icon-globe"></i></a>
+    <a id="flip" href="#" type="button" rel="tooltip" class="toggle btn btn-default" data-toggle="tooltip" data-placement="right" title=""><i class="icon-globe"></i></a>
 
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
@@ -413,9 +413,24 @@
             new OpenLayers.LonLat(-72.50, 46.34).transform(
                 new OpenLayers.Projection("EPSG:4326"),
                 map.getProjectionObject()
-            ), 9
+            ), 8
         );
-            
+        
+        var removeMapEvent = function () {
+          map.events.remove('moveend');
+        };
+
+        var registerMapEvent = function () {
+          map.events.register('moveend', map, mapEvent);
+        };
+  
+        var mapEvent = function (event) {
+          alert('the map moved...');
+          //call geonetwork
+        };
+  
+        registerMapEvent();
+        
         // Hack to preserver layer order in Layer control
       
         //var scaleControl = L.control.scale({
