@@ -273,7 +273,12 @@
         });
         
         $("#searchbutton").click(function(){
-            alert("Query CSW with " + $("#searchbox").val());
+            //$('#searchbox').typeahead('destroy');
+            $(".tt-dropdown-menu").hide();
+            //alert("Query CSW with " + $("#searchbox").val());
+            var latlonBounds = getMapBounds();
+            $("#records").html("Query CSW with " + $("#searchbox").val() + " at " + latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
+         
         });
         
         $("#searchbox").keydown("keydown", function(event) {
@@ -325,10 +330,7 @@
         };
   
         var mapEvent = function (event) {
-          var ll, ur, llgeo, urgeo;
-          var bounds = map.getExtent();
-          var latlonProjection = new OpenLayers.Projection('EPSG:4326');
-          var latlonBounds  = bounds.transform(map.getProjectionObject(), latlonProjection);
+          var latlonBounds = getMapBounds();
           $("#records").html(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
           //alert(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4))
         };
@@ -352,6 +354,7 @@
         //enable search right away because no data is laoding right now...
         //$(document).one("ajaxStop", function() {
             //$('#loading').hide();
+            
             $('#searchbox').typeahead([
             /*{
                 name: 'Museums',
@@ -398,6 +401,7 @@
                       ), 14
                      );
                 };
+                
             }).on('typeahead:initialized ', function () {
                 //alert('initialized');
                 $('.tt-dropdown-menu').css('max-height', $('#container').height()-$('.navbar').height()-20);
@@ -418,6 +422,14 @@
                     });
                 }
             });
+        }
+        
+        function getMapBounds(){
+          var ll, ur, llgeo, urgeo;
+          var bounds = map.getExtent();
+          var latlonProjection = new OpenLayers.Projection('EPSG:4326');
+          var latlonBounds  = bounds.transform(map.getProjectionObject(), latlonProjection);
+          return latlonBounds;
         }
     </script>
   </body>
