@@ -52,6 +52,10 @@
             white-space: nowrap;
         }
         
+        img {
+          max-width: 100%;
+        }
+
         img.olTileImage {
           max-width: none;
         }
@@ -303,16 +307,17 @@
         });
         $(window).resize(function() {
             $('.tt-dropdown-menu').css('max-height', $('#container').height()-$('.navbar').height()-20);
-            //setTimeout( function() { map.updateSize();}, 200);
+            setTimeout( function() { map.updateSize();}, 200);
+            //map.baseLayer().redraw();
         });
-
+        
         $('a.toggle').click(function() {
             $('a.toggle i').toggleClass('icon-globe icon-list');
             $('#map').toggleClass('col-sm-9 col-lg-9 col-sm-12 col-lg-12');
             $('#sidebar').toggle();
             //$('[rel=tooltip]').tooltip( "option", "content", "Show Post - test2" );
             //map.invalidateSize();
-            //setTimeout( function() { map.updateSize();}, 200);
+            setTimeout( function() { map.updateSize();}, 200);
             return false;
         });
 
@@ -402,7 +407,7 @@
             new OpenLayers.LonLat(-100, 63).transform(
                 new OpenLayers.Projection("EPSG:4326"),
                 map.getProjectionObject()
-            ), 3
+            ), 4
         );
             
         // Hack to preserver layer order in Layer control
