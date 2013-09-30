@@ -176,6 +176,7 @@ if (typeof OpenLayers === "object") {
                 "numZoomLevels":        provider.maxZoom,
                 "buffer":               0,
                 "transitionEffect":     "resize",
+                "attribution":          ATTRIBUTION,  //added by MartinO
                 // see: <http://dev.openlayers.org/apidocs/files/OpenLayers/Layer/OSM-js.html#OpenLayers.Layer.OSM.tileOptions>
                 // and: <http://dev.openlayers.org/apidocs/files/OpenLayers/Tile/Image-js.html#OpenLayers.Tile.Image.crossOriginKeyword>
                 "tileOptions": {
