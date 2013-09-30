@@ -11,9 +11,9 @@
     <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
     <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="css/typeahead.js-bootstrap.css" rel="stylesheet" type="text/css"> <!--https://github.com/jharding/typeahead.js-bootstrap.css-->
-    <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" type="text/css">
+    <!--link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" type="text/css"-->
     <!--[if lte IE 8]>
-        <link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" rel="stylesheet" type="text/css">
+        <!--link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" rel="stylesheet" type="text/css"-->
         <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
     <![endif]-->
 
@@ -57,16 +57,16 @@
           max-width: 100%;
         }
 
-.olControlAttribution {
-    font-size: inherit !important;
-right: 0;
-bottom: 0 !important;
-position: absolute;
-color: white;
-background: black;
-padding: 3px 5px 2px;
-margin: 0;
-}
+        .olControlAttribution {
+          font-size: inherit !important;
+          right: 0;
+          bottom: 0 !important;
+          position: absolute;
+          color: white;
+          background: black;
+          padding: 3px 5px 2px;
+          margin: 0;
+        }
 
         img.olTileImage {
           max-width: none;
@@ -176,24 +176,10 @@ margin: 0;
             <a class="navbar-brand" href="#">CSW GeoClient</a>
         </div>
         <div class="navbar-collapse collapse">
-            <!--ul class="nav navbar-nav">
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#aboutModal').modal('show'); return false;"><i class="icon-question-sign" style="color: white"></i>&nbsp;&nbsp;About</a></li>
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-envelope" style="color: white"></i>&nbsp;&nbsp;Contact</a></li>
-                <li class="dropdown">
-                    <a id="toolsDrop" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-globe" style="color: white"></i>&nbsp;&nbsp;Tools <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#" onclick="map.fitBounds(boroughs.getBounds()); return false;"><i class="icon-fullscreen"></i>&nbsp;&nbsp;Zoom To Full Extent</a></li>
-                        <li><a href="#" onclick="$('#legendModal').modal('show'); return false;"><i class="icon-picture"></i>&nbsp;&nbsp;Show Legend</a></li>
-                        <li class="divider"></li>
-                            <li><a href="#" onclick="$('#loginModal').modal('show'); return false;"><i class="icon-user"></i>&nbsp;&nbsp;Login</a></li>
-                    </ul>
-                </li>
-                <li><a href="https://github.com/bmcbride/bootleaf" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="icon-github-alt" style="color: white"></i>&nbsp;&nbsp;GitHub</a></li>
-            </ul-->
             <form class="navbar-form navbar-right">
                 <div class="input-group search-container">
-                    <input id="searchbox" type="text" class="form-control" placeholder="Search">
-                    <span class="input-group-addon"><i class="icon-search"></i></span>
+                    <input id="searchbox" type="text" class="form-control" placeholder="Recherche">
+                    <span id="searchbutton" class="input-group-addon"><i class="icon-search"></i></span>
                 </div>
             </form>
         </div><!--/.navbar-collapse -->
@@ -205,54 +191,47 @@ margin: 0;
                 <li class="active"><a href="#layers" data-toggle="tab"><i class="icon-list"></i>&nbsp;Résultats</a></li>
                 <li><a href="#help" data-toggle="tab"><i class="icon-filter"></i>&nbsp;Filtres</a></li>
             </ul>
-
+            
             <div class="tab-content" style="padding-top: 10px;">
                 <div class="tab-pane active" id="layers">
-                  <div id="records">    
-                  </div>
+                  <div id="records">RECORDS FROM CSW SERVICE....</div>
                 </div>
-                
                 <div class="tab-pane" id="help">
-                    <div class="btn-group-vertical">
-      <ul class="nav nav-pills">
-        <li class="dropdown">
-          <a id="drop5" role="button" data-toggle="dropdown" href="#">Thème<b class="caret"></b></a>
-          <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop5">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
-          </ul>
-        </li>
-        </br>
-        <li class="dropdown">
-          <a id="drop6" role="button" data-toggle="dropdown" href="#">Organisation<b class="caret"></b></a>
-          <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
-          </ul>
-        </li>
-        </br>
-        <li class="dropdown">
-          <a id="drop6" role="button" data-toggle="dropdown" href="#">Format<b class="caret"></b></a>
-          <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
-            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
-          </ul>
-        </li>
-      </ul> <!-- /tabs -->
-    </div> <!-- /example -->
-
-                </div>
-                
-                
-                
+                  <div class="btn-group-vertical">
+                  <ul class="nav nav-pills">
+                    <li class="dropdown">
+                      <a id="drop5" role="button" data-toggle="dropdown" href="#">Thème<b class="caret"></b></a>
+                      <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop5">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
+                      </ul>
+                    </li>
+                    </br>
+                    <li class="dropdown">
+                      <a id="drop6" role="button" data-toggle="dropdown" href="#">Organisation<b class="caret"></b></a>
+                      <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
+                      </ul>
+                    </li>
+                    </br>
+                    <li class="dropdown">
+                      <a id="drop6" role="button" data-toggle="dropdown" href="#">Format<b class="caret"></b></a>
+                      <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
+                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
+                      </ul>
+                    </li>
+                  </ul> <!-- /tabs -->
+                </div> <!-- /btn-group-vertical -->
+               </div> <!-- /help -->
             </div>
         </div>
+        
+        <!-- LOADER DISABLÉ POUR L'INSTANT-->
         <div class="col-sm-9 col-lg-9" id="map">
             <div id="loading" style="display: block;">
                 <div class="loading-indicator">
@@ -262,6 +241,7 @@ margin: 0;
                 </div>
             </div>
         </div>
+        
     </div>
     
     <!-- BOUTON POUR TOGGLÉ ENTRE LA LISTE DES RESULTATS ET LA MAP-->
@@ -270,15 +250,12 @@ margin: 0;
     <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/typeahead.min.js"></script> <!--https://github.com/twitter/typeahead.js/-->
-    <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    <!--script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script-->
     <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
     <script type="text/javascript" src="js/tile.stamen.js"></script>
     <script type="text/javascript">
-        var map, boroughSearch = [], theaterSearch = [], museumSearch = [];
-
-        //OL
-        var olMap, olLayer
-        
+        var map;  //, boroughSearch = [], theaterSearch = [], museumSearch = [];
+   
         $(document).ready(function() {
             $('#loading').hide();
           
@@ -293,61 +270,30 @@ margin: 0;
         $(window).resize(function() {
             $('.tt-dropdown-menu').css('max-height', $('#container').height()-$('.navbar').height()-20);
             setTimeout( function() { map.updateSize();}, 200);
-            //map.baseLayer().redraw();
+        });
+        
+        $("#searchbutton").click(function(){
+            alert("Query CSW with " + $("#searchbox").val());
+        });
+        
+        $("#searchbox").keydown("keydown", function(event) {
+         var code = event.keyCode;
+          if (code == 13) {
+              //event.stop();
+              $("#searchbutton").trigger("click");
+              //close autocomplete if open
+              //return callback(event);
+          }
         });
         
         $('a.toggle').click(function() {
             $('a.toggle i').toggleClass('icon-globe icon-list');
             $('#map').toggleClass('col-sm-9 col-lg-9 col-sm-12 col-lg-12');
             $('#sidebar').toggle();
-            //$('[rel=tooltip]').tooltip( "option", "content", "Show Post - test2" );
             //map.invalidateSize();
             setTimeout( function() { map.updateSize();}, 200);
             return false;
         });
-
-        // Basemap Layers
-        var mapquestOSM = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            subdomains: ["otile1", "otile2", "otile3", "otile4"],
-            attribution: 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA.'
-        });
-        var mapquestOAM = L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
-            maxZoom: 18,
-            subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-            attribution: 'Tiles courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a>. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
-        });
-        
-        var mapquestHYB = L.layerGroup([L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/sat/{z}/{x}/{y}.jpg", {
-            maxZoom: 18,
-            subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"]
-        }), L.tileLayer("http://{s}.mqcdn.com/tiles/1.0.0/hyb/{z}/{x}/{y}.png", {
-            maxZoom: 19,
-            subdomains: ["oatile1", "oatile2", "oatile3", "oatile4"],
-            attribution: 'Labels courtesy of <a href="http://www.mapquest.com/" target="_blank">MapQuest</a> <img src="http://developer.mapquest.com/content/osm/mq_logo.png">. Map data (c) <a href="http://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> contributors, CC-BY-SA. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency'
-        })]);
-
-        // Overlay Layers
-        /*
-        var boroughs = L.geoJson(null, {
-            style: function (feature) {
-                return {
-                    color: 'black',
-                    fill: false,
-                    opacity: 1,
-                    clickable: false
-                };
-            },
-            onEachFeature: function (feature, layer) {
-                boroughSearch.push({value: layer.feature.properties.BoroName, tokens: [layer.feature.properties.BoroName], layer: 'Boroughs', id: layer._leaflet_id, bounds: layer.getBounds()});
-            }
-        });
-        */
-        //$.getJSON("data/boroughs.geojson", function (data) {
-        //    boroughs.addData(data);
-        //}).complete(function () {
-        //    map.fitBounds(boroughs.getBounds());
-        //});
 
         /*
         map = L.map("map", {
@@ -357,38 +303,9 @@ margin: 0;
         });*/
         
         map = new OpenLayers.Map( 'map');
-        layer = new OpenLayers.Layer.OSM( "Simple OSM Map");
-        
-        var stamen_toner = new OpenLayers.Layer.Stamen("toner");
-        
-        var mapQuestOSM = new OpenLayers.Layer.XYZ(
-            "OpenStreetMap", 
-            [
-                "http://otile1.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-                "http://otile2.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-                "http://otile3.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png",
-                "http://otile4.mqcdn.com/tiles/1.0.0/map/${z}/${x}/${y}.png"
-            ],
-            {
-                attribution: "Data, imagery and map information provided by <a href='http://www.mapquest.com/'  target='_blank'>MapQuest</a>, <a href='http://www.openstreetmap.org/' target='_blank'>Open Street Map</a> and contributors, <a href='http://creativecommons.org/licenses/by-sa/2.0/' target='_blank'>CC-BY-SA</a>  <img src='http://developer.mapquest.com/content/osm/mq_logo.png' border='0'>",
-                transitionEffect: "resize"
-            }
-        )
-        var mapQuestImagery = new OpenLayers.Layer.XYZ(
-            "Imagery",
-            [
-                "http://otile1.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png",
-                "http://otile2.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png",
-                "http://otile3.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png",
-                "http://otile4.mqcdn.com/tiles/1.0.0/sat/${z}/${x}/${y}.png"
-            ],
-            {
-                attribution: "Tiles Courtesy of <a href='http://open.mapquest.co.uk/' target='_blank'>MapQuest</a>. Portions Courtesy NASA/JPL-Caltech and U.S. Depart. of Agriculture, Farm Service Agency. <img src='http://developer.mapquest.com/content/osm/mq_logo.png' border='0'>",
-                transitionEffect: "resize"
-            }
-        )
-        
-        map.addLayer(stamen_toner); //mapQuestOSM, mapQuestImagery);
+        var osm = new OpenLayers.Layer.OSM( "Simple OSM Map");        
+        var stamen_toner = new OpenLayers.Layer.Stamen("toner");        
+        map.addLayer(stamen_toner);
         
         //axe mtl quebec 46.34, -72.50
         //canada -100,63
@@ -417,12 +334,6 @@ margin: 0;
         };
   
         registerMapEvent();
-        
-        // Hack to preserver layer order in Layer control
-      
-        //var scaleControl = L.control.scale({
-        //    position: 'bottomright'
-        //});
 
         // Larger screens get scale control and expanded layer control
         if (document.body.clientWidth <= 767) {
@@ -431,25 +342,6 @@ margin: 0;
             var isCollapsed = false;
             //map.addControl(scaleControl);
         };
-  
-        /*
-        var baseLayers = {
-            "Streets": mapquestOSM,
-            "Imagery": mapquestOAM,
-            "Hybrid": mapquestHYB
-        };
-
-        var overlays = {
-            "Boroughs": boroughs,
-            "Subway Lines": subwayLines,
-            "<img src='img/theater.png' width='24' height='28'>&nbsp;Theaters": theaters,
-            "<img src='img/museum.png' width='24' height='28'>&nbsp;Museums": museums
-        };
-        */
-        
-        // var layerControl = L.control.layers(baseLayers, overlays, {
-        //     collapsed: isCollapsed
-        // }).addTo(map);
 
         // Highlight search box text on click
         $("#searchbox").click(function () {
@@ -462,17 +354,6 @@ margin: 0;
             //$('#loading').hide();
             $('#searchbox').typeahead([
             /*{
-                name: 'Boroughs',
-                local: boroughSearch,
-                minLength: 2,
-                header: '<h4 class="typeahead-header">Boroughs</h4>'
-            },{
-                name: 'Theaters',
-                local: theaterSearch,
-                minLength: 2,
-                limit: 10,
-                header: '<h4 class="typeahead-header"><img src="img/theater.png" width="24" height="28">&nbsp;Theaters</h4>'
-            },{
                 name: 'Museums',
                 local: museumSearch,
                 minLength: 2,
@@ -504,6 +385,7 @@ margin: 0;
                 limit: 5,
                 header: '<h4 class="typeahead-header"><img src="img/globe.png" width="25" height="25">&nbsp;GeoNames</h4>'
               }]).on('typeahead:selected', function (obj, datum) {
+               alert('selected');
                 if (datum.layer === 'Boroughs') {
                     map.fitBounds(datum.bounds);
                 };
@@ -517,6 +399,7 @@ margin: 0;
                      );
                 };
             }).on('typeahead:initialized ', function () {
+                //alert('initialized');
                 $('.tt-dropdown-menu').css('max-height', $('#container').height()-$('.navbar').height()-20);
                 // $('.tt-dropdown-menu').css('min-width', $('.tt-dropdown-menu').width()+50);
             });
