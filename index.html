@@ -196,78 +196,48 @@
             </ul>
 
             <div class="tab-content" style="padding-top: 10px;">
-                
                 <div class="tab-pane active" id="layers">
-                    <div class="panel-group">
-                        <div class="panel panel-default" style="display: none;">
-                            <div class="panel-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#overlay-layers">
-                                    Overlay Layers
-                                </a>
-                            </div>
-                            <div id="overlay-layers" class="panel-collapse collapse in">
-                                <div class="panel-body" style="padding: 0px 15px;">
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="boroughs" z-index="2" checked>
-                                            Boroughs
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="subwayLines" z-index="1">
-                                            Subway Lines
-                                        </label>
-                                    </div>
-                                    <!--div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="theaters" z-index="3" checked>
-                                            Theaters&nbsp;<img src='img/theater.png' width='24' height='28'>
-                                        </label>
-                                    </div>
-                                    <div class="checkbox">
-                                        <label>
-                                            <input type="checkbox" name="overlayLayers" id="museums" z-index="3">
-                                            Museums&nbsp;<img src='img/museum.png' width='24' height='28'>
-                                        </label>
-                                    </div-->
-                                </div>
-                            </div>
-                        </div>
-                        <div class="panel panel-default" style="display: none;">
-                            <div class="panel-heading">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion_" href="#basemap-layers">
-                                    Basemaps
-                                </a>
-                            </div>
-                            <div id="basemap-layers" class="panel-collapse collapse in">
-                                <div class="panel-body" style="padding: 0px 15px;">
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="basemapLayers" id="mapquestOSM" checked>
-                                            Streets
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="basemapLayers" id="mapquestOAM">
-                                            Imagery
-                                        </label>
-                                    </div>
-                                    <div class="radio">
-                                        <label>
-                                            <input type="radio" name="basemapLayers" id="mapquestHYB">
-                                            Hybrid
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="tab-pane" id="help">
                     
                 </div>
+                <div class="tab-pane" id="help">
+                    <div class="btn-group-vertical">
+      <ul class="nav nav-pills">
+        <li class="dropdown">
+          <a id="drop5" role="button" data-toggle="dropdown" href="#">Thème<b class="caret"></b></a>
+          <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop5">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
+          </ul>
+        </li>
+        </br>
+        <li class="dropdown">
+          <a id="drop6" role="button" data-toggle="dropdown" href="#">Organisation<b class="caret"></b></a>
+          <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
+          </ul>
+        </li>
+        </br>
+        <li class="dropdown">
+          <a id="drop6" role="button" data-toggle="dropdown" href="#">Format<b class="caret"></b></a>
+          <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
+            <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Separated link</a></li>
+          </ul>
+        </li>
+      </ul> <!-- /tabs -->
+    </div> <!-- /example -->
+
+                </div>
+                
+                
+                
             </div>
         </div>
         <div class="col-sm-9 col-lg-9" id="map">
@@ -425,8 +395,11 @@
         };
   
         var mapEvent = function (event) {
-          alert('the map moved...');
-          //call geonetwork
+          var ll, ur, llgeo, urgeo;
+          var bounds = map.getExtent();
+          var latlonProjection = new OpenLayers.Projection('EPSG:4326');
+          var latlonBounds  = bounds.transform(map.getProjectionObject(), latlonProjection);
+          //alert(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4))
         };
   
         registerMapEvent();
@@ -439,7 +412,7 @@
 
         // Larger screens get scale control and expanded layer control
         if (document.body.clientWidth <= 767) {
-        var isCollapsed = true;
+          var isCollapsed = true;
         } else {
             var isCollapsed = false;
             //map.addControl(scaleControl);
