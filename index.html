@@ -50,6 +50,7 @@
             font-size: 22px;
             color: white;
             white-space: nowrap;
+            /*background-color: rgba(0, 60, 136, 0.7);*/
         }
         
         img {
@@ -288,6 +289,7 @@
     <script type="text/javascript" src="js/typeahead.min.js"></script> <!--https://github.com/twitter/typeahead.js/-->
     <script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
     <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
+    <script type="text/javascript" src="js/tile.stamen.js"></script>
     <script type="text/javascript">
         var map, boroughSearch = [], theaterSearch = [], museumSearch = [];
 
@@ -374,6 +376,8 @@
         map = new OpenLayers.Map( 'map');
         layer = new OpenLayers.Layer.OSM( "Simple OSM Map");
         
+        var stamen_toner = new OpenLayers.Layer.Stamen("toner");
+        
         var mapQuestOSM = new OpenLayers.Layer.XYZ(
             "OpenStreetMap", 
             [
@@ -401,13 +405,15 @@
             }
         )
         
-        map.addLayer(layer); //mapQuestOSM, mapQuestImagery);
+        map.addLayer(stamen_toner); //mapQuestOSM, mapQuestImagery);
         
+        //axe mtl quebec 46.34, -72.50
+        //canada -100,63
         map.setCenter(
-            new OpenLayers.LonLat(-100, 63).transform(
+            new OpenLayers.LonLat(-72.50, 46.34).transform(
                 new OpenLayers.Projection("EPSG:4326"),
                 map.getProjectionObject()
-            ), 4
+            ), 9
         );
             
         // Hack to preserver layer order in Layer control
