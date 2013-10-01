@@ -1,4 +1,10 @@
+ /* ceci est un commentaire pour StefanoB */
+ /* les 2 classes css suivantes changent les dropdown list en noir pour thèmes,format et organisation */
  .nav .caret {
   border-top-color: black !important;
   border-bottom-color: black !important;
+}
+
+.dropdown a {
+  color: black !important;
 }
