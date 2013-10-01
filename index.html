@@ -177,6 +177,10 @@
             <a class="navbar-brand" href="#">CSW GeoClient</a>
         </div>
         <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-book" style="color: white"></i>&nbsp;&nbsp;Catalogue</a></li>
+                <li><a href="https://github.com/geomartino/csw-geoclient" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="icon-github-alt" style="color: white"></i>&nbsp;&nbsp;GitHub</a></li>
+            </ul>
             <form class="navbar-form navbar-right">
                 <div class="input-group search-container">
                     <input id="searchbox" type="text" class="form-control" placeholder="Recherche">
@@ -244,6 +248,29 @@
         </div>
         
     </div>
+    
+      <div class="modal fade" id="contactModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Catalogue de Métadonnées</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="contact-form">
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="url du service CSW..." value="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" id="url">
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Ok</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
     
     <!-- BOUTON POUR TOGGLÉ ENTRE LA LISTE DES RESULTATS ET LA MAP-->
     <a id="flip" href="#" type="button" rel="tooltip" class="toggle btn btn-default" data-toggle="tooltip" data-placement="right" title=""><i class="icon-globe"></i></a>
