@@ -361,6 +361,10 @@
           var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
           url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
           
+          if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
+            url = url + "&url=" + $("#url").val();
+          }
+                    
           $.getJSON(url, function(data) {
             var template = "{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>{{#features}}{{#properties}}<h4>{{title}}</h4>{{/properties}}{{/features}}";
             var html = Mustache.to_html(template, data);

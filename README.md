@@ -17,7 +17,8 @@ Credits:
 
 * Responsive layout -> https://github.com/bmcbride/bootleaf  
 * Beautiful Stamen -> basemap http://maps.stamen.com/  
-* Autocomplete widget -> http://twitter.github.io/typeahead.js/  
+* Autocomplete widget -> http://twitter.github.io/typeahead.js/
+* mustache.js -> javascript templating
 * cswClient.php -> http://trac.osgeo.org/geonetwork/wiki/HowToDoCSWTransactionOperations
 
 PEAR et HTTP_Request2 sont requis pour utiliser cswCLient.php
