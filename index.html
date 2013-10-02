@@ -239,7 +239,7 @@
                      <form id="contact-form">
                         <fieldset>
                             <div class="form-group">
-                                <input type="text" placeholder="url du service CSW..." value="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" id="url">
+                                <input type="text" placeholder="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" value="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" id="url">
                             </div>
                         </fieldset>
                     </form>
@@ -268,13 +268,15 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Catalogue de métadonnées interrogé</h4>
+                    <h3 class="modal-title">Catalogue de métadonnées actif</h3>
                 </div>
                 <div class="modal-body">
                     <form id="contact-form">
                         <fieldset>
                             <div class="form-group">
-                                <input type="text" class="form-control" placeholder="url du service CSW..." value="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" id="url">
+                                Inscrire l'adresse URL d'un catalogue de métadonnées conforme au standard CSW
+                                <input type="text" class="form-control" placeholder="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" value="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" id="url">
+                                <i>Ex.: http://geocatalog.bibl.ulaval.ca/geonetwork/srv/fr/csw</i>
                             </div>
                         </fieldset>
                     </form>
@@ -304,7 +306,7 @@
                                     
                                     <li class="list-group-item"><b>Résumé</b><p><span id="description"></span></li>
                                     
-                                    <li class="list-group-item"><a id="cadrer" href="tobedefined">Afficher l'étendue cartographique</a></li>
+                                    <li class="list-group-item"><a id="cadrer" href="tobedefined">Afficher l'étendue géographique</a></li>
                                    
                                     <li class="list-group-item"><a id="uri" target="_new" href="tobedefined">Fiche détaillée & lien de téléchargement</a></li>
                                     
@@ -545,6 +547,9 @@
                     map.fitBounds(datum.bounds);
                 };
                 if (datum.layer === 'GeoNames') {
+                    
+                    $("#searchbox").val("");
+                    
                     //map.setView([datum.lat, datum.lng], 14);
                     map.setCenter(
                       new OpenLayers.LonLat(datum.lng, datum.lat).transform(
@@ -602,7 +607,14 @@
          
          $("#entete_fiche").html("Fiche sommaire : " + activeRecords.features[p_id].properties.title);
          //$("#abstract").html(activeRecords.features[p_id].properties.abstract);
-         $("#description").html(activeRecords.features[p_id].properties.description);
+         
+         if (activeRecords.features[p_id].properties.abstract != ""){
+            $("#description").html(activeRecords.features[p_id].properties.abstract);
+         }
+         else{
+            $("#description").html(activeRecords.features[p_id].properties.description);
+         }
+         
          
          //activeRecords.features[p_id].geometry.coordinates[0][0][0];
          //activeRecords.features[p_id].geometry.coordinates[0][3][1];
