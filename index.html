@@ -170,6 +170,7 @@
 
   <body>
 
+    <!--div class="navbar navbar-inverse navbar-fixed-top"-->
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
             <!--button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -181,7 +182,7 @@
             <!--a class="navbar-brand" href="#">CSW GeoClient</a-->
             <form class="navbar-form navbar-right">
                 <div class="input-group search-container">
-                    <input id="searchbox" type="text" class="form-control" placeholder="Recherche">
+                    <input id="searchbox" type="text" class="form-control" placeholder="Recherche" />
                     <span id="searchbutton" class="input-group-addon"><i class="icon-search"></i></span>
                 </div>
             </form>
@@ -285,34 +286,20 @@
                     <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
                         <div class="tab-pane fade active in" id="about">
                             <div class="panel panel-primary">
+                              
                                 <div class="panel-heading">
-                                    Fiche Détaillée
+                                    <span id="entete_fiche">Fiche Sommaire ?</span>
                                 </div>
+                                
                                 <ul class="list-group">
-                                    <li class="list-group-item">Fullscreen mobile-friendly map template with responsive navbar and modal placeholders</li>
-                                    <li class="list-group-item">jQuery loading of external GeoJSON files</li>
-                                    <li class="list-group-item">Elegant client-side multi-layer feature search with autocomplete using <a href="http://twitter.github.io/typeahead.js/" target="_blank">typeahead.js</a></li>
-                                    <li class="list-group-item">Integration of Bootstrap tables into Leaflet popups</li>
-                                    <li class="list-group-item">Logic for minimizing layer control and removing scale control on small screens</li>
-                                    <li class="list-group-item">Marker icons included in layer control</li>
+                                    <!--li class="list-group-item"><b>Abstract</b><p><span id="abstract"></span></li-->
+                                    
+                                    <li class="list-group-item"><b>Résumé</b><p><span id="description"></span></li>
+                                    
+                                    <li class="list-group-item"><a id="uri" target="_new" href="tobedefined">Fiche détaillée & lien de téléchargement</a></li>
+                                    
                                 </ul>
                             </div>
-                        </div>
-                        <div class="tab-pane fade text-danger" id="disclaimer">
-                            <p>The data provided on this site is for informational and planning purposes only.</p>
-                            <p>Absolutely no accuracy or completeness guarantee is implied or intended. All information on this map is subject to such variations and corrections as might result from a complete title search and/or accurate field survey.</p>
-                        </div>
-                        <div class="tab-pane fade" id="boroughs-tab">
-                            <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/html/bytes/meta_dis_nyboroughwi.shtml" target="_blank">New York City Department of City Planning</a></p>
-                        </div>
-                        <div class="tab-pane fade" id="subway-lines-tab">
-                            <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
-                        </div>
-                        <div class="tab-pane fade" id="theaters-tab">
-                            <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
-                        </div>
-                        <div class="tab-pane fade" id="museums-tab">
-                            <p>Museum data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
                         </div>
                     </div>
                 </div>
@@ -332,7 +319,8 @@
     <script type="text/javascript" src="js/mustache.js"></script>
     <script type="text/javascript">
         var map;  //, boroughSearch = [], theaterSearch = [], museumSearch = [];
-   
+        var activeRecords;
+        
         $(document).ready(function() {
             $('#loading').hide();
           
@@ -373,8 +361,8 @@
           //alert($(this).text());
           //do theme query with $(this)[0].id
           var latlonBounds = getMapBounds();
-          //var url = 'test/csw2geojson.php';
-          var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
+          var url = 'test/csw2geojson.php';
+          //var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
           url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
           if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
             url = url + "&url=" + $("#url").val();
@@ -419,8 +407,8 @@
           //$("#records").html(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
           //alert(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4))
           //$.getJSON('json/data.json', function(data) {
-          var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
-          //var url = 'test/csw2geojson.php';
+          //var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
+          var url = 'test/csw2geojson.php';
           url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
           if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
             url = url + "&url=" + $("#url").val();
@@ -479,8 +467,8 @@
                 //prefetch: 'data/ulaval_limit10.geojson',
                 //prefetch: 'http://geo-dev.bibl.ulaval.ca/meta/test.php?query=%QUERY&jsoncallback=?',
                 remote: {
-                  url: 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php?query=%QUERY',
-                  //url: 'test/csw2geojson.php?query=%QUERY',
+                  //url: 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php?query=%QUERY',
+                  url: 'test/csw2geojson.php?query=%QUERY',
                   beforeSend: function(jqXhr, settings) {
                     if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
                       settings.url = settings.url + "&url=" + $("#url").val();
@@ -573,9 +561,42 @@
           return latlonBounds;
         }
         
+        function loadDetail(p_id){
+          //alert(p_id);
+          //activeRecords.features[p_id].properties.identifier
+          //activeRecords.features[p_id].properties.title
+          //activeRecords.features[p_id].properties.abstract
+          //activeRecords.features[p_id].properties.description
+          for (var i = 0; i<activeRecords.features[p_id].properties.URI;i++ ){
+            //activeRecords.features[p_id].properties.URI[i] 
+          }
+         
+         var template = "{{#properties}}<div class='panel-heading'>Fiche sommaire : {{title}}</div>";
+         template += "<ul class='list-group'><li class='list-group-item'><b>Résumé</b></li>";
+         template += "<li class='list-group-item'>{{abstract}}</li>,</ul>";
+         
+         template += "{{/properties}}";
+         
+         $("#entete_fiche").html(activeRecords.features[p_id].properties.title);
+         //$("#abstract").html(activeRecords.features[p_id].properties.abstract);
+         $("#description").html(activeRecords.features[p_id].properties.description);
+         $("#uri")[0].href = "http://www.donnees.gouv.qc.ca?node=/donnees-details&id=" + activeRecords.features[p_id].properties.identifier;
+         
+         /* <li class="list-group-item">Sujets</li>
+         <li class="list-group-item">Étendue géographique </li>
+         <li class="list-group-item">Identifiant de la fiche</li>
+         <li class="list-group-item">Fiche détaillée & lien de téléchargement :</li> */
+
+ 
+          //var template = "{{#properties}}<div>{{identifier}}<div><div>{{title}}<div>{{/properties}}";
+          //html = Mustache.to_html(template, activeRecords.features[p_id]);
+          //$('#details').html(html);
+          
+        }
+        
         function updateResults(p_url){
            $.getJSON(p_url, function(data) {
-            
+            activeRecords = data;
             
             //var tab_template = "&nbsp;Résultats " + "{{numberOfRecordsMatched}}";
             //var html = Mustache.to_html(tab_template, data);
@@ -585,7 +606,7 @@
             //$("#tab-results_text").text($("#tab-results_text").text() + "(" + data.numberOfRecordsMatched + ")");
             
             //{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>
-            var template = "{{#features}}{{#properties}}<a href='#' onclick=\"$('#detailModal').modal('show'); return false;\">{{title}}</a></br>{{/properties}}{{/features}}";
+            var template = "{{#features}}<a href='#' onclick=\"loadDetail({{id}}); $('#detailModal').modal('show'); return false;\">{{#properties}}{{title}}</a></br>{{/properties}}{{/features}}";
             html = Mustache.to_html(template, data);
             $('#records').html(html);
           });
