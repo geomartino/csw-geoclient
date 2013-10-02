@@ -33,6 +33,11 @@
         label {
             font-weight: normal;
         }
+        #url{
+           
+           width: 300px;
+           
+        }
         #map {
             height: 100%;
             margin: 0px;
@@ -187,20 +192,19 @@
             </form>
             
         </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-book" style="color: white"></i>&nbsp;&nbsp;Catalogue</a></li>
+        <!--div class="navbar-collapse collapse"-->
+            <!--ul class="nav navbar-nav"-->
+                <!--li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-book" style="color: white"></i>&nbsp;&nbsp;Catalogue</a></li-->
                 <!--li><a target="_new" href="https://github.com/geomartino/csw-geoclient" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="icon-github-alt" style="color: white"></i>&nbsp;&nbsp;GitHub</a></li-->
-            </ul>
-            
-        </div><!--/.navbar-collapse -->
+            <!--/ul-->
+        <!--/div>--<!--/.navbar-collapse -->
     </div>
 
     <div class="row" id="container">
         <div class="col-sm-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a href="#layers" data-toggle="tab" id="tab-results_text"><i class="icon-list"></i>&nbsp;Résultats</a></li>
-                <!--li><a href="#help" data-toggle="tab"><i class="icon-filter"></i>&nbsp;Filtres</a></li-->
+                <li><a href="#help" data-toggle="tab"><i class="icon-book"></i>&nbsp;Catalogue</a></li>
             </ul>
             
             <div class="tab-content" style="padding-top: 10px;">
@@ -226,25 +230,17 @@
                 <div class="tab-pane" id="help">
                   <div class="btn-group-vertical">
                   <ul class="nav nav-pills">
-                    <li class="dropdown">
-                      <a id="drop5" role="button" data-toggle="dropdown" href="#">Thème<b class="caret"></b></a>
-                      <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="*" tabindex="-1" href="#">Tous</a></li>
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="farming" tabindex="-1" href="#">Agriculture</a></li>
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="biota" tabindex="-1" href="#">Biologie, faune et flore</a></li>
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="imageryBaseMapsEarthCover" tabindex="-1" href="#">Carte de référence de la couverture terrestre</a></li>
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="economy" tabindex="-1" href="#">Économie</a></li>
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="transportation" tabindex="-1" href="#">Infrastructures de transport</a></li>
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="boundaries" tabindex="-1" href="#">Limites politiques et administratives</a></li>
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="location" tabindex="-1" href="#">Localisation</a></li>
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="health" tabindex="-1" href="#">Santé</a></li>
-                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="geoscientificInformation" tabindex="-1" href="#">Sciences de la terre, géosciences</a></li>
-                      </ul>
-                    </li>
-                    </br>
+                     <form id="contact-form">
+                        <fieldset>
+                            <div class="form-group">
+                                <input type="text" placeholder="url du service CSW..." value="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" id="url">
+                            </div>
+                        </fieldset>
+                    </form>
                   </ul> <!-- /tabs -->
                 </div> <!-- /btn-group-vertical -->
                </div> <!-- /help -->
+               
             </div>
         </div>
         
