@@ -147,10 +147,16 @@
             .leaflet-control-attribution {
                 display: none;
             }
+            .olControlZoom {
+              display: none;  
+            }
         }
         @media (max-width: 768px){
             .search-container {
                 width: 100%;
+            }
+            .olControlZoom {
+              display: none;  
             }
         }
         /* Print Handling */
@@ -577,7 +583,7 @@
          
          template += "{{/properties}}";
          
-         $("#entete_fiche").html(activeRecords.features[p_id].properties.title);
+         $("#entete_fiche").html("Fiche sommaire : " + activeRecords.features[p_id].properties.title);
          //$("#abstract").html(activeRecords.features[p_id].properties.abstract);
          $("#description").html(activeRecords.features[p_id].properties.description);
          $("#uri")[0].href = "http://www.donnees.gouv.qc.ca?node=/donnees-details&id=" + activeRecords.features[p_id].properties.identifier;
