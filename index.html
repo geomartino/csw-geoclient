@@ -112,6 +112,7 @@
         .panel-heading a:hover {
             text-decoration: none;
         }
+            
         a.toggle {
             position: fixed;
             left: 0;
@@ -188,7 +189,7 @@
             <!--a class="navbar-brand" href="#">CSW GeoClient</a-->
             <form class="navbar-form navbar-right">
                 <div class="input-group search-container">
-                    <input id="searchbox" type="text" class="form-control" placeholder="Recherche" />
+                    <input id="searchbox" type="text" class="form-control" placeholder="Recherche données ou lieux" />
                     <span id="searchbutton" class="input-group-addon"><i class="icon-search"></i></span>
                 </div>
             </form>
@@ -348,8 +349,18 @@
             $(".tt-dropdown-menu").hide();
             //alert("Query CSW with " + $("#searchbox").val());
             var latlonBounds = getMapBounds();
-            $("#records").html("Query CSW with " + $("#searchbox").val() + " at " + latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
-            $("#searchbox").val("");
+            //$("#records").html("Query CSW with " + $("#searchbox").val() + " at " + latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
+            //$("#searchbox").val("");
+            var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
+            url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
+            if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
+              url = url + "&url=" + $("#url").val();
+            }
+            if ($("#searchbox").val() != ""){
+              url = url + "&query=" + $("#searchbox").val();
+            }
+            updateResults(url);
+          
         });
         
         $("#searchbox").keydown("keydown", function(event) {
@@ -419,7 +430,10 @@
           if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
             url = url + "&url=" + $("#url").val();
           }
-                   
+          if ($("#searchbox").val() != ""){
+              url = url + "&query=" + $("#searchbox").val();
+          }
+              
           updateResults(url);
           /*
           $.getJSON(url, function(data) {
@@ -467,7 +481,7 @@
                 limit: 10,
                 header: '<h4 class="typeahead-header"><img src="img/museum.png" width="24" height="28">&nbsp;Museums</h4>'
             },*/
-            {
+            /*{
                 name: 'Catalogue',
                 //local: boroughSearch,
                 //prefetch: 'data/ulaval_limit10.geojson',
@@ -496,7 +510,7 @@
                 minLength: 2,
                 limit: 5,
                 header: '<h4 class="typeahead-header">Catalogue</h4>'
-             },
+             },*/
              {
                 name: 'GeoNames',
                 remote: {
