@@ -275,6 +275,49 @@
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
     
+    <div class="modal fade" id="detailModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button><p>
+                    <div id="aboutTabsContent" class="tab-content" style="padding-top: 10px;">
+                        <div class="tab-pane fade active in" id="about">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    Fiche Détaillée
+                                </div>
+                                <ul class="list-group">
+                                    <li class="list-group-item">Fullscreen mobile-friendly map template with responsive navbar and modal placeholders</li>
+                                    <li class="list-group-item">jQuery loading of external GeoJSON files</li>
+                                    <li class="list-group-item">Elegant client-side multi-layer feature search with autocomplete using <a href="http://twitter.github.io/typeahead.js/" target="_blank">typeahead.js</a></li>
+                                    <li class="list-group-item">Integration of Bootstrap tables into Leaflet popups</li>
+                                    <li class="list-group-item">Logic for minimizing layer control and removing scale control on small screens</li>
+                                    <li class="list-group-item">Marker icons included in layer control</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-pane fade text-danger" id="disclaimer">
+                            <p>The data provided on this site is for informational and planning purposes only.</p>
+                            <p>Absolutely no accuracy or completeness guarantee is implied or intended. All information on this map is subject to such variations and corrections as might result from a complete title search and/or accurate field survey.</p>
+                        </div>
+                        <div class="tab-pane fade" id="boroughs-tab">
+                            <p>Borough data courtesy of <a href="http://www.nyc.gov/html/dcp/html/bytes/meta_dis_nyboroughwi.shtml" target="_blank">New York City Department of City Planning</a></p>
+                        </div>
+                        <div class="tab-pane fade" id="subway-lines-tab">
+                            <p><a href="http://spatialityblog.com/2010/07/08/mta-gis-data-update/#datalinks" target="_blank">MTA Subway data</a> courtesy of the <a href="http://www.urbanresearch.org/about/cur-components/cuny-mapping-service" target="_blank">CUNY Mapping Service at the Center for Urban Research</a></p>
+                        </div>
+                        <div class="tab-pane fade" id="theaters-tab">
+                            <p>Theater data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Theaters/kdu2-865w" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
+                        </div>
+                        <div class="tab-pane fade" id="museums-tab">
+                            <p>Museum data courtesy of <a href="https://data.cityofnewyork.us/Recreation/Museums-and-Galleries/sat5-adpb" target="_blank">NYC Department of Information & Telecommunications (DoITT)</a></p>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+    
     <!-- BOUTON POUR TOGGLÉ ENTRE LA LISTE DES RESULTATS ET LA MAP-->
     <a id="flip" href="#" type="button" rel="tooltip" class="toggle btn btn-default" data-toggle="tooltip" data-placement="right" title=""><i class="icon-globe"></i></a>
 
@@ -366,7 +409,7 @@
           }
                     
           $.getJSON(url, function(data) {
-            var template = "{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>{{#features}}{{#properties}}<h4>{{title}}</h4>{{/properties}}{{/features}}";
+            var template = "{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>{{#features}}{{#properties}}<a href='#' onclick=\"$('#detailModal').modal('show'); return false;\">{{title}}</a></br>{{/properties}}{{/features}}";
             var html = Mustache.to_html(template, data);
             $('#records').html(html);
           });
