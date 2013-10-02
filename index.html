@@ -378,7 +378,8 @@
           //alert($(this).text());
           //do theme query with $(this)[0].id
           var latlonBounds = getMapBounds();
-          var url = 'test/csw2geojson.php';
+          //var url = 'test/csw2geojson.php';
+          var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
           url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
           if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
             url = url + "&url=" + $("#url").val();
