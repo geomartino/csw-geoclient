@@ -24,6 +24,9 @@
             height: 100%;
             margin: 0px;
         }
+        h4, .h4 {
+          font-size: 14px !important;
+        }
         body {
             padding-top: 50px;
         }
@@ -179,7 +182,7 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-book" style="color: white"></i>&nbsp;&nbsp;Catalogue</a></li>
-                <li><a href="https://github.com/geomartino/csw-geoclient" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="icon-github-alt" style="color: white"></i>&nbsp;&nbsp;GitHub</a></li>
+                <!--li><a target="_new" href="https://github.com/geomartino/csw-geoclient" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="icon-github-alt" style="color: white"></i>&nbsp;&nbsp;GitHub</a></li-->
             </ul>
             <form class="navbar-form navbar-right">
                 <div class="input-group search-container">
@@ -199,7 +202,7 @@
             
             <div class="tab-content" style="padding-top: 10px;">
                 <div class="tab-pane active" id="layers">
-                  <div id="records">RECORDS FROM CSW SERVICE....</div>
+                  <div id="records"></div>
                 </div>
                 <div class="tab-pane" id="help">
                   <div class="btn-group-vertical">
@@ -281,6 +284,7 @@
     <!--script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script-->
     <script type="text/javascript" src="http://openlayers.org/api/OpenLayers.js"></script>
     <script type="text/javascript" src="js/tile.stamen.js"></script>
+    <script type="text/javascript" src="js/mustache.js"></script>
     <script type="text/javascript">
         var map;  //, boroughSearch = [], theaterSearch = [], museumSearch = [];
    
@@ -306,7 +310,7 @@
             //alert("Query CSW with " + $("#searchbox").val());
             var latlonBounds = getMapBounds();
             $("#records").html("Query CSW with " + $("#searchbox").val() + " at " + latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
-         
+            $("#searchbox").val("");
         });
         
         $("#searchbox").keydown("keydown", function(event) {
@@ -340,15 +344,7 @@
         var stamen_toner = new OpenLayers.Layer.Stamen("toner");        
         map.addLayer(stamen_toner);
         
-        //axe mtl quebec 46.34, -72.50
-        //canada -100,63
-        map.setCenter(
-            new OpenLayers.LonLat(-72.50, 46.34).transform(
-                new OpenLayers.Projection("EPSG:4326"),
-                map.getProjectionObject()
-            ), 8
-        );
-        
+           
         var removeMapEvent = function () {
           map.events.remove('moveend');
         };
@@ -359,11 +355,30 @@
   
         var mapEvent = function (event) {
           var latlonBounds = getMapBounds();
-          $("#records").html(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
+          //$("#records").html(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
           //alert(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4))
+          //$.getJSON('json/data.json', function(data) {
+          var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
+          url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
+          
+          $.getJSON(url, function(data) {
+            var template = "{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>{{#features}}{{#properties}}<h4>{{title}}</h4>{{/properties}}{{/features}}";
+            var html = Mustache.to_html(template, data);
+            $('#records').html(html);
+          });
+
         };
   
         registerMapEvent();
+        
+        //axe mtl quebec 46.34, -72.50
+        //canada -100,63
+        map.setCenter(
+            new OpenLayers.LonLat(-72.50, 46.34).transform(
+                new OpenLayers.Projection("EPSG:4326"),
+                map.getProjectionObject()
+            ), 8
+        );
 
         // Larger screens get scale control and expanded layer control
         if (document.body.clientWidth <= 767) {
@@ -391,6 +406,35 @@
                 limit: 10,
                 header: '<h4 class="typeahead-header"><img src="img/museum.png" width="24" height="28">&nbsp;Museums</h4>'
             },*/
+            {
+                name: 'Catalogue',
+                //local: boroughSearch,
+                //prefetch: 'data/ulaval_limit10.geojson',
+                //prefetch: 'http://geo-dev.bibl.ulaval.ca/meta/test.php?query=%QUERY&jsoncallback=?',
+                remote: {
+                  url: 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php?query=%QUERY',
+                  beforeSend: function(jqXhr, settings) {
+                    if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
+                      settings.url = settings.url + "&url=" + $("#url").val();
+                    }
+                  },
+                  filter: function(parsedResponse) {
+                      var dataset = [];
+                      for(i = 0; i < parsedResponse.features.length; i++) {
+                          dataset.push({
+                              value: parsedResponse.features[i].properties.title,
+                              tokens: [parsedResponse.features[i].properties.title],
+                              layer: 'Boroughs',
+                              bounds: parsedResponse.features[i].geometry
+                          });
+                      }
+                      return dataset;
+                  },
+                },
+                minLength: 2,
+                limit: 5,
+                header: '<h4 class="typeahead-header">Catalogue</h4>'
+             },
              {
                 name: 'GeoNames',
                 remote: {
@@ -415,8 +459,9 @@
                 minLength: 2,
                 limit: 5,
                 header: '<h4 class="typeahead-header"><img src="img/globe.png" width="25" height="25">&nbsp;GeoNames</h4>'
-              }]).on('typeahead:selected', function (obj, datum) {
-               alert('selected');
+              }
+              ]).on('typeahead:selected', function (obj, datum) {
+               //alert('selected');
                 if (datum.layer === 'Boroughs') {
                     map.fitBounds(datum.bounds);
                 };
