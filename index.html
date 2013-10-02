@@ -196,43 +196,50 @@
     <div class="row" id="container">
         <div class="col-sm-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
             <ul class="nav nav-tabs" id="myTab">
-                <li class="active"><a href="#layers" data-toggle="tab"><i class="icon-list"></i>&nbsp;Résultats</a></li>
-                <li><a href="#help" data-toggle="tab"><i class="icon-filter"></i>&nbsp;Filtres</a></li>
+                <li class="active"><a href="#layers" data-toggle="tab" id="tab-results_text"><i class="icon-list"></i>&nbsp;Résultats</a></li>
+                <!--li><a href="#help" data-toggle="tab"><i class="icon-filter"></i>&nbsp;Filtres</a></li-->
             </ul>
             
             <div class="tab-content" style="padding-top: 10px;">
                 <div class="tab-pane active" id="layers">
+                  <div class="dropdown">
+                      <a id="drop5" role="button" data-toggle="dropdown" href="#">Thème<b class="caret"></b></a>
+                      <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop5">
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="*" tabindex="-1" href="#">Tous</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="farming" tabindex="-1" href="#">Agriculture</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="biota" tabindex="-1" href="#">Biologie, faune et flore</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="imageryBaseMapsEarthCover" tabindex="-1" href="#">Carte de référence de la couverture terrestre</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="economy" tabindex="-1" href="#">Économie</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="transportation" tabindex="-1" href="#">Infrastructures de transport</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="boundaries" tabindex="-1" href="#">Limites politiques et administratives</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="location" tabindex="-1" href="#">Localisation</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="health" tabindex="-1" href="#">Santé</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="geoscientificInformation" tabindex="-1" href="#">Sciences de la terre, géosciences</a></li>
+                      </ul>
+                    </div>
+                    </br>
                   <div id="records"></div>
                 </div>
+            
                 <div class="tab-pane" id="help">
                   <div class="btn-group-vertical">
                   <ul class="nav nav-pills">
                     <li class="dropdown">
                       <a id="drop5" role="button" data-toggle="dropdown" href="#">Thème<b class="caret"></b></a>
                       <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop5">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="*" tabindex="-1" href="#">Tous</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="farming" tabindex="-1" href="#">Agriculture</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="biota" tabindex="-1" href="#">Biologie, faune et flore</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="imageryBaseMapsEarthCover" tabindex="-1" href="#">Carte de référence de la couverture terrestre</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="economy" tabindex="-1" href="#">Économie</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="transportation" tabindex="-1" href="#">Infrastructures de transport</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="boundaries" tabindex="-1" href="#">Limites politiques et administratives</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="location" tabindex="-1" href="#">Localisation</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="health" tabindex="-1" href="#">Santé</a></li>
+                        <li role="presentation"><a class="dropdown-item" role="menuitem" id="geoscientificInformation" tabindex="-1" href="#">Sciences de la terre, géosciences</a></li>
                       </ul>
                     </li>
                     </br>
-                    <li class="dropdown">
-                      <a id="drop6" role="button" data-toggle="dropdown" href="#">Organisation<b class="caret"></b></a>
-                      <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
-                      </ul>
-                    </li>
-                    </br>
-                    <li class="dropdown">
-                      <a id="drop6" role="button" data-toggle="dropdown" href="#">Format<b class="caret"></b></a>
-                      <ul id="menu3" class="dropdown-menu" role="menu" aria-labelledby="drop6">
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Another action</a></li>
-                        <li role="presentation"><a role="menuitem" tabindex="-1" href="http://twitter.com/fat">Something else here</a></li>
-                      </ul>
-                    </li>
                   </ul> <!-- /tabs -->
                 </div> <!-- /btn-group-vertical -->
                </div> <!-- /help -->
@@ -366,6 +373,21 @@
           }
         });
         
+        $(".dropdown-item").click(function(e, f){          
+          //alert($(".btn:first-child").text($(this).text()));
+          //alert($(this).text());
+          //do theme query with $(this)[0].id
+          var latlonBounds = getMapBounds();
+          var url = 'test/csw2geojson.php';
+          url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
+          if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
+            url = url + "&url=" + $("#url").val();
+          }
+          url = url + "&topic=" + $(this)[0].id;
+          updateResults(url);
+          
+         });
+        
         $('a.toggle').click(function() {
             $('a.toggle i').toggleClass('icon-globe icon-list');
             $('#map').toggleClass('col-sm-9 col-lg-9 col-sm-12 col-lg-12');
@@ -402,17 +424,19 @@
           //alert(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4))
           //$.getJSON('json/data.json', function(data) {
           var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
+          //var url = 'test/csw2geojson.php';
           url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
-          
           if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
             url = url + "&url=" + $("#url").val();
           }
-                    
+                   
+          updateResults(url);
+          /*
           $.getJSON(url, function(data) {
             var template = "{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>{{#features}}{{#properties}}<a href='#' onclick=\"$('#detailModal').modal('show'); return false;\">{{title}}</a></br>{{/properties}}{{/features}}";
             var html = Mustache.to_html(template, data);
             $('#records').html(html);
-          });
+          });*/
 
         };
   
@@ -460,6 +484,7 @@
                 //prefetch: 'http://geo-dev.bibl.ulaval.ca/meta/test.php?query=%QUERY&jsoncallback=?',
                 remote: {
                   url: 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php?query=%QUERY',
+                  //url: 'test/csw2geojson.php?query=%QUERY',
                   beforeSend: function(jqXhr, settings) {
                     if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
                       settings.url = settings.url + "&url=" + $("#url").val();
@@ -550,6 +575,24 @@
           var latlonProjection = new OpenLayers.Projection('EPSG:4326');
           var latlonBounds  = bounds.transform(map.getProjectionObject(), latlonProjection);
           return latlonBounds;
+        }
+        
+        function updateResults(p_url){
+           $.getJSON(p_url, function(data) {
+            
+            
+            //var tab_template = "&nbsp;Résultats " + "{{numberOfRecordsMatched}}";
+            //var html = Mustache.to_html(tab_template, data);
+            
+           
+            $("#tab-results_text")[0].innerHTML = "<i class='icon-list'></i>&nbsp;Résultats" + " (" + data.numberOfRecordsMatched + ")";
+            //$("#tab-results_text").text($("#tab-results_text").text() + "(" + data.numberOfRecordsMatched + ")");
+            
+            //{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>
+            var template = "{{#features}}{{#properties}}<a href='#' onclick=\"$('#detailModal').modal('show'); return false;\">{{title}}</a></br>{{/properties}}{{/features}}";
+            html = Mustache.to_html(template, data);
+            $('#records').html(html);
+          });
         }
     </script>
   </body>
