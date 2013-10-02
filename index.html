@@ -233,7 +233,7 @@
                   <div id="records"></div>
                 </div>
             
-                <div class="tab-pane" id="help">
+                <!--div class="tab-pane" id="help">
                   <div class="btn-group-vertical">
                   <ul class="nav nav-pills">
                      <form id="contact-form">
@@ -243,9 +243,9 @@
                             </div>
                         </fieldset>
                     </form>
-                  </ul> <!-- /tabs -->
-                </div> <!-- /btn-group-vertical -->
-               </div> <!-- /help -->
+                  </ul> 
+                </div> 
+               </div--> 
                
             </div>
         </div>
@@ -280,12 +280,12 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary pull-right" data-dismiss="modal">Ok</button>
+                    <button type="submit" onclick="reloadFromNewServer()" class="btn btn-primary pull-right" data-dismiss="modal">Ok</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    
+            
     <div class="modal fade" id="detailModal">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -660,6 +660,22 @@
             $('#records').html(html);
           });
         }
+        
+        function reloadFromNewServer(){
+            var latlonBounds = getMapBounds();
+            //$("#records").html("Query CSW with " + $("#searchbox").val() + " at " + latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
+            //$("#searchbox").val("");
+            var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
+            url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
+            if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
+              url = url + "&url=" + $("#url").val();
+            }
+            if ($("#searchbox").val() != ""){
+              url = url + "&query=" + $("#searchbox").val();
+            }
+            updateResults(url);
+        }
+            
     </script>
   </body>
 </html>
