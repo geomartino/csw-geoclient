@@ -6,5 +6,8 @@
 }
 
 .dropdown a {
-  color: black !important;
+  color: #555 !important;
+}
+#icon_catalog {
+  color: #555 !important;
 }

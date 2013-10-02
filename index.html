@@ -33,11 +33,6 @@
         label {
             font-weight: normal;
         }
-        #url{
-           
-           width: 300px;
-           
-        }
         #map {
             height: 100%;
             margin: 0px;
@@ -204,13 +199,13 @@
         <div class="col-sm-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
             <ul class="nav nav-tabs" id="myTab">
                 <li class="active"><a href="#layers" data-toggle="tab" id="tab-results_text"><i class="icon-list"></i>&nbsp;Résultats</a></li>
-                <li><a href="#help" data-toggle="tab"><i class="icon-book"></i>&nbsp;Catalogue</a></li>
+                <!--li><a href="#help" data-toggle="tab"><i class="icon-book"></i>&nbsp;Catalogue</a></li-->
             </ul>
             
             <div class="tab-content" style="padding-top: 10px;">
                 <div class="tab-pane active" id="layers">
-                  <div class="dropdown">
-                      <a id="drop5" role="button" data-toggle="dropdown" href="#">Thème<b class="caret"></b></a>
+                  <span class="dropdown">
+                      <a id="drop5" role="button" data-toggle="dropdown" href="#">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon-filter">&nbsp;Thème</i><b class="caret"></b></a>
                       <ul id="menu2" class="dropdown-menu" role="menu" aria-labelledby="drop5">
                         <li role="presentation"><a class="dropdown-item" role="menuitem" id="*" tabindex="-1" href="#">Tous</a></li>
                         <li role="presentation"><a class="dropdown-item" role="menuitem" id="farming" tabindex="-1" href="#">Agriculture</a></li>
@@ -223,7 +218,9 @@
                         <li role="presentation"><a class="dropdown-item" role="menuitem" id="health" tabindex="-1" href="#">Santé</a></li>
                         <li role="presentation"><a class="dropdown-item" role="menuitem" id="geoscientificInformation" tabindex="-1" href="#">Sciences de la terre, géosciences</a></li>
                       </ul>
-                    </div>
+                    </span>
+                  <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a id="icon_catalog" href="#" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-book"></i>&nbsp;Catalogue</a></span>
+                  <p>
                   <div id="records"></div>
                 </div>
             
@@ -262,7 +259,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Catalogue de Métadonnées</h4>
+                    <h4 class="modal-title">Catalogue de métadonnées interrogé</h4>
                 </div>
                 <div class="modal-body">
                     <form id="contact-form">
