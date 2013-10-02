@@ -205,11 +205,12 @@
 
     <div class="row" id="container">
         <div class="col-sm-3 col-lg-3" id="sidebar" style="padding: 10px; overflow: auto;">
-            <ul class="nav nav-tabs" id="myTab">
+            <p>
+            <ul class="nav nav-tabs" id="myTab"-->
                 <li class="active"><a href="#layers" data-toggle="tab" id="tab-results_text"><i class="icon-list"></i>&nbsp;Résultats</a></li>
                 <!--li><a href="#help" data-toggle="tab"><i class="icon-book"></i>&nbsp;Catalogue</a></li-->
             </ul>
-            
+            <!--i class="icon-list"></i>&nbsp;<span id="label_resultat">Résultats</span></li-->
             <div class="tab-content" style="padding-top: 10px;">
                 <div class="tab-pane active" id="layers">
                   <span class="dropdown">
@@ -303,6 +304,8 @@
                                     
                                     <li class="list-group-item"><b>Résumé</b><p><span id="description"></span></li>
                                     
+                                    <li class="list-group-item"><a id="cadrer" href="tobedefined">Afficher l'étendue cartographique</a></li>
+                                   
                                     <li class="list-group-item"><a id="uri" target="_new" href="tobedefined">Fiche détaillée & lien de téléchargement</a></li>
                                     
                                 </ul>
@@ -600,6 +603,18 @@
          $("#entete_fiche").html("Fiche sommaire : " + activeRecords.features[p_id].properties.title);
          //$("#abstract").html(activeRecords.features[p_id].properties.abstract);
          $("#description").html(activeRecords.features[p_id].properties.description);
+         
+         //activeRecords.features[p_id].geometry.coordinates[0][0][0];
+         //activeRecords.features[p_id].geometry.coordinates[0][3][1];
+         //activeRecords.features[p_id].geometry.coordinates[0][3][0];
+         //activeRecords.features[p_id].geometry.coordinates[0][1][1];
+         
+         //activeRecords.features[p_id].geometry.coordinates[0][0][0]: "-80.68359375"
+          //activeRecords.features[p_id].geometry.coordinates[0][3][1]: "43.9453125"
+        //activeRecords.features[p_id].geometry.coordinates[0][3][0]: "-52.91015625"
+        //activeRecords.features[p_id].geometry.coordinates[0][1][1]: "63.984375"
+        
+         $("#cadrer")[0].href = "javascript:  closeAndZoom(" + p_id + ");";
          $("#uri")[0].href = "http://www.donnees.gouv.qc.ca?node=/donnees-details&id=" + activeRecords.features[p_id].properties.identifier;
          
          /* <li class="list-group-item">Sujets</li>
@@ -614,6 +629,17 @@
           
         }
         
+        function closeAndZoom(p_id){
+         $('#detailModal').modal('hide')
+         
+         var bounds = new OpenLayers.Bounds(activeRecords.features[p_id].geometry.coordinates[0][0][0], activeRecords.features[p_id].geometry.coordinates[0][3][1],activeRecords.features[p_id].geometry.coordinates[0][3][0], activeRecords.features[p_id].geometry.coordinates[0][1][1])
+         var latlonProjection = new OpenLayers.Projection('EPSG:4326');
+         var latlonBounds  = bounds.transform(latlonProjection, map.getProjectionObject());
+          
+         map.zoomToExtent(latlonBounds);
+         
+        }
+        
         function updateResults(p_url){
            $.getJSON(p_url, function(data) {
             activeRecords = data;
@@ -625,8 +651,11 @@
             $("#tab-results_text")[0].innerHTML = "<i class='icon-list'></i>&nbsp;Résultats" + " (" + data.numberOfRecordsMatched + ")";
             //$("#tab-results_text").text($("#tab-results_text").text() + "(" + data.numberOfRecordsMatched + ")");
             
+            //$("#label_resultat")[0].innerHTML = "&nbsp;Résultats" + " (" + data.numberOfRecordsMatched + ")";
+            
+            
             //{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>
-            var template = "{{#features}}<a href='#' onclick=\"loadDetail({{id}}); $('#detailModal').modal('show'); return false;\">{{#properties}}{{title}}</a></br>{{/properties}}{{/features}}";
+            var template = "{{#features}}<i class='icon-chevron-sign-right'>   <a href='#' onclick=\"loadDetail({{id}}); $('#detailModal').modal('show'); return false;\">{{#properties}}{{title}}</a></i></br>{{/properties}}{{/features}}";
             html = Mustache.to_html(template, data);
             $('#records').html(html);
           });
