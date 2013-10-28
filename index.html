@@ -180,13 +180,7 @@
     <!--div class="navbar navbar-inverse navbar-fixed-top"-->
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-header">
-            <!--button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
             
-            <!--a class="navbar-brand" href="#">CSW GeoClient</a-->
             <form class="navbar-form navbar-right">
                 <div class="input-group search-container">
                     <input id="searchbox" type="text" class="form-control" placeholder="Recherche données ou lieux" />
@@ -195,12 +189,6 @@
             </form>
             
         </div>
-        <!--div class="navbar-collapse collapse"-->
-            <!--ul class="nav navbar-nav"-->
-                <!--li><a href="#" data-toggle="collapse" data-target=".navbar-collapse.in" onclick="$('#contactModal').modal('show'); return false;"><i class="icon-book" style="color: white"></i>&nbsp;&nbsp;Catalogue</a></li-->
-                <!--li><a target="_new" href="https://github.com/geomartino/csw-geoclient" data-toggle="collapse" data-target=".navbar-collapse.in"><i class="icon-github-alt" style="color: white"></i>&nbsp;&nbsp;GitHub</a></li-->
-            <!--/ul-->
-        <!--/div>--<!--/.navbar-collapse -->
     </div>
 
     <div class="row" id="container">
@@ -208,9 +196,9 @@
             <p>
             <ul class="nav nav-tabs" id="myTab"-->
                 <li class="active"><a href="#layers" data-toggle="tab" id="tab-results_text"><i class="icon-list"></i>&nbsp;Résultats</a></li>
-                <!--li><a href="#help" data-toggle="tab"><i class="icon-book"></i>&nbsp;Catalogue</a></li-->
+                
             </ul>
-            <!--i class="icon-list"></i>&nbsp;<span id="label_resultat">Résultats</span></li-->
+           
             <div class="tab-content" style="padding-top: 10px;">
                 <div class="tab-pane active" id="layers">
                   <span class="dropdown">
@@ -233,19 +221,6 @@
                   <div id="records"></div>
                 </div>
             
-                <!--div class="tab-pane" id="help">
-                  <div class="btn-group-vertical">
-                  <ul class="nav nav-pills">
-                     <form id="contact-form">
-                        <fieldset>
-                            <div class="form-group">
-                                <input type="text" placeholder="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" value="http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" id="url">
-                            </div>
-                        </fieldset>
-                    </form>
-                  </ul> 
-                </div> 
-               </div--> 
                
             </div>
         </div>
@@ -330,8 +305,10 @@
     <script type="text/javascript" src="js/tile.stamen.js"></script>
     <script type="text/javascript" src="js/mustache.js"></script>
     <script type="text/javascript">
-        var map;  //, boroughSearch = [], theaterSearch = [], museumSearch = [];
+        var map;
         var activeRecords;
+        var url_csv2geojson = 'http://pregeoegl.msp.gouv.qc.ca/golocmsp/php/csw2geojson.php';
+        var url_service_csw = 'http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw';
         
         $(document).ready(function() {
             $('#loading').hide();
@@ -339,8 +316,6 @@
             $('[rel=tooltip]').tooltip();
             if (document.body.clientWidth <= 767) {
                 $('#sidebar').toggle();
-                
-                //$('[rel=tooltip]').tooltip( "option", "content", "Show Post - test1" );
                 $('a.toggle i').toggleClass('icon-globe icon-list');
             };
         });
@@ -350,15 +325,12 @@
         });
         
         $("#searchbutton").click(function(){
-            //$('#searchbox').typeahead('destroy');
             $(".tt-dropdown-menu").hide();
-            //alert("Query CSW with " + $("#searchbox").val());
             var latlonBounds = getMapBounds();
-            //$("#records").html("Query CSW with " + $("#searchbox").val() + " at " + latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
-            //$("#searchbox").val("");
-            var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
+            var url = url_csv2geojson;
             url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
-            if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
+            //si le service csw est différent de celui du gouv.qc, l'ajouter en paramtre
+            if ($("#url").val() != url_service_csw && $("#url").val() != ""){
               url = url + "&url=" + $("#url").val();
             }
             if ($("#searchbox").val() != ""){
@@ -371,22 +343,15 @@
         $("#searchbox").keydown("keydown", function(event) {
          var code = event.keyCode;
           if (code == 13) {
-              //event.stop();
               $("#searchbutton").trigger("click");
-              //close autocomplete if open
-              //return callback(event);
           }
         });
         
         $(".dropdown-item").click(function(e, f){          
-          //alert($(".btn:first-child").text($(this).text()));
-          //alert($(this).text());
-          //do theme query with $(this)[0].id
           var latlonBounds = getMapBounds();
-          //var url = 'test/csw2geojson.php';
-          var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
+          var url = url_csv2geojson;
           url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
-          if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
+          if ($("#url").val() != url_service_csw && $("#url").val() != ""){
             url = url + "&url=" + $("#url").val();
           }
           url = url + "&topic=" + $(this)[0].id;
@@ -398,18 +363,10 @@
             $('a.toggle i').toggleClass('icon-globe icon-list');
             $('#map').toggleClass('col-sm-9 col-lg-9 col-sm-12 col-lg-12');
             $('#sidebar').toggle();
-            //map.invalidateSize();
             setTimeout( function() { map.updateSize();}, 200);
             return false;
         });
 
-        /*
-        map = L.map("map", {
-            zoom: 3,
-            center: new L.LatLng(53, -100),
-            layers: [mapquestOSM]
-        });*/
-        
         map = new OpenLayers.Map( 'map');
         var osm = new OpenLayers.Layer.OSM( "Simple OSM Map");        
         var stamen_toner = new OpenLayers.Layer.Stamen("toner");        
@@ -426,13 +383,9 @@
   
         var mapEvent = function (event) {
           var latlonBounds = getMapBounds();
-          //$("#records").html(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
-          //alert(latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4))
-          //$.getJSON('json/data.json', function(data) {
-          var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
-          //var url = 'test/csw2geojson.php';
+          var url = url_csv2geojson;
           url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
-          if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
+          if ($("#url").val() != url_service_csw && $("#url").val() != ""){
             url = url + "&url=" + $("#url").val();
           }
           if ($("#searchbox").val() != ""){
@@ -440,19 +393,11 @@
           }
               
           updateResults(url);
-          /*
-          $.getJSON(url, function(data) {
-            var template = "{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>{{#features}}{{#properties}}<a href='#' onclick=\"$('#detailModal').modal('show'); return false;\">{{title}}</a></br>{{/properties}}{{/features}}";
-            var html = Mustache.to_html(template, data);
-            $('#records').html(html);
-          });*/
 
         };
   
         registerMapEvent();
         
-        //axe mtl quebec 46.34, -72.50
-        //canada -100,63
         map.setCenter(
             new OpenLayers.LonLat(-72.50, 46.34).transform(
                 new OpenLayers.Projection("EPSG:4326"),
@@ -465,7 +410,6 @@
           var isCollapsed = true;
         } else {
             var isCollapsed = false;
-            //map.addControl(scaleControl);
         };
 
         // Highlight search box text on click
@@ -473,49 +417,8 @@
             $(this).select();
         });
 
-        // Typeahead search functionality
-        //enable search right away because no data is laoding right now...
-        //$(document).one("ajaxStop", function() {
-            //$('#loading').hide();
             
             $('#searchbox').typeahead([
-            /*{
-                name: 'Museums',
-                local: museumSearch,
-                minLength: 2,
-                limit: 10,
-                header: '<h4 class="typeahead-header"><img src="img/museum.png" width="24" height="28">&nbsp;Museums</h4>'
-            },*/
-            /*{
-                name: 'Catalogue',
-                //local: boroughSearch,
-                //prefetch: 'data/ulaval_limit10.geojson',
-                //prefetch: 'http://geo-dev.bibl.ulaval.ca/meta/test.php?query=%QUERY&jsoncallback=?',
-                remote: {
-                  url: 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php?query=%QUERY',
-                  //url: 'test/csw2geojson.php?query=%QUERY',
-                  beforeSend: function(jqXhr, settings) {
-                    if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
-                      settings.url = settings.url + "&url=" + $("#url").val();
-                    }
-                  },
-                  filter: function(parsedResponse) {
-                      var dataset = [];
-                      for(i = 0; i < parsedResponse.features.length; i++) {
-                          dataset.push({
-                              value: parsedResponse.features[i].properties.title,
-                              tokens: [parsedResponse.features[i].properties.title],
-                              layer: 'Boroughs',
-                              bounds: parsedResponse.features[i].geometry
-                          });
-                      }
-                      return dataset;
-                  },
-                },
-                minLength: 2,
-                limit: 5,
-                header: '<h4 class="typeahead-header">Catalogue</h4>'
-             },*/
              {
                 name: 'GeoNames',
                 remote: {
@@ -542,7 +445,6 @@
                 header: '<h4 class="typeahead-header"><img src="img/globe.png" width="25" height="25">&nbsp;GeoNames</h4>'
               }
               ]).on('typeahead:selected', function (obj, datum) {
-               //alert('selected');
                 if (datum.layer === 'Boroughs') {
                     map.fitBounds(datum.bounds);
                 };
@@ -550,7 +452,6 @@
                     
                     $("#searchbox").val("");
                     
-                    //map.setView([datum.lat, datum.lng], 14);
                     map.setCenter(
                       new OpenLayers.LonLat(datum.lng, datum.lat).transform(
                       new OpenLayers.Projection("EPSG:4326"),
@@ -560,12 +461,9 @@
                 };
                 
             }).on('typeahead:initialized ', function () {
-                //alert('initialized');
                 $('.tt-dropdown-menu').css('max-height', $('#container').height()-$('.navbar').height()-20);
-                // $('.tt-dropdown-menu').css('min-width', $('.tt-dropdown-menu').width()+50);
             });
-        //});
-
+            
         // Placeholder hack for IE
         if (navigator.appName == "Microsoft Internet Explorer") {
             $("input").each( function () {
@@ -590,15 +488,7 @@
         }
         
         function loadDetail(p_id){
-          //alert(p_id);
-          //activeRecords.features[p_id].properties.identifier
-          //activeRecords.features[p_id].properties.title
-          //activeRecords.features[p_id].properties.abstract
-          //activeRecords.features[p_id].properties.description
-          for (var i = 0; i<activeRecords.features[p_id].properties.URI;i++ ){
-            //activeRecords.features[p_id].properties.URI[i] 
-          }
-         
+          
          var template = "{{#properties}}<div class='panel-heading'>Fiche sommaire : {{title}}</div>";
          template += "<ul class='list-group'><li class='list-group-item'><b>Résumé</b></li>";
          template += "<li class='list-group-item'>{{abstract}}</li>,</ul>";
@@ -606,7 +496,6 @@
          template += "{{/properties}}";
          
          $("#entete_fiche").html("Fiche sommaire : " + activeRecords.features[p_id].properties.title);
-         //$("#abstract").html(activeRecords.features[p_id].properties.abstract);
          
          if (activeRecords.features[p_id].properties.abstract != ""){
             $("#description").html(activeRecords.features[p_id].properties.abstract);
@@ -614,31 +503,10 @@
          else{
             $("#description").html(activeRecords.features[p_id].properties.description);
          }
-         
-         
-         //activeRecords.features[p_id].geometry.coordinates[0][0][0];
-         //activeRecords.features[p_id].geometry.coordinates[0][3][1];
-         //activeRecords.features[p_id].geometry.coordinates[0][3][0];
-         //activeRecords.features[p_id].geometry.coordinates[0][1][1];
-         
-         //activeRecords.features[p_id].geometry.coordinates[0][0][0]: "-80.68359375"
-          //activeRecords.features[p_id].geometry.coordinates[0][3][1]: "43.9453125"
-        //activeRecords.features[p_id].geometry.coordinates[0][3][0]: "-52.91015625"
-        //activeRecords.features[p_id].geometry.coordinates[0][1][1]: "63.984375"
         
          $("#cadrer")[0].href = "javascript:  closeAndZoom(" + p_id + ");";
          $("#uri")[0].href = "http://www.donnees.gouv.qc.ca?node=/donnees-details&id=" + activeRecords.features[p_id].properties.identifier;
          
-         /* <li class="list-group-item">Sujets</li>
-         <li class="list-group-item">Étendue géographique </li>
-         <li class="list-group-item">Identifiant de la fiche</li>
-         <li class="list-group-item">Fiche détaillée & lien de téléchargement :</li> */
-
- 
-          //var template = "{{#properties}}<div>{{identifier}}<div><div>{{title}}<div>{{/properties}}";
-          //html = Mustache.to_html(template, activeRecords.features[p_id]);
-          //$('#details').html(html);
-          
         }
         
         function closeAndZoom(p_id){
@@ -655,18 +523,8 @@
         function updateResults(p_url){
            $.getJSON(p_url, function(data) {
             activeRecords = data;
-            
-            //var tab_template = "&nbsp;Résultats " + "{{numberOfRecordsMatched}}";
-            //var html = Mustache.to_html(tab_template, data);
-            
            
             $("#tab-results_text")[0].innerHTML = "<i class='icon-list'></i>&nbsp;Résultats" + " (" + data.numberOfRecordsMatched + ")";
-            //$("#tab-results_text").text($("#tab-results_text").text() + "(" + data.numberOfRecordsMatched + ")");
-            
-            //$("#label_resultat")[0].innerHTML = "&nbsp;Résultats" + " (" + data.numberOfRecordsMatched + ")";
-            
-            
-            //{{numberOfRecordsReturned}}/{{numberOfRecordsMatched}}</br>
             var template = "{{#features}}<i class='icon-chevron-sign-right'>   <a href='#' onclick=\"loadDetail({{id}}); $('#detailModal').modal('show'); return false;\">{{#properties}}{{title}}</a></i></br>{{/properties}}{{/features}}";
             html = Mustache.to_html(template, data);
             $('#records').html(html);
@@ -675,11 +533,9 @@
         
         function reloadFromNewServer(){
             var latlonBounds = getMapBounds();
-            //$("#records").html("Query CSW with " + $("#searchbox").val() + " at " + latlonBounds.left.toFixed(4) + " " + latlonBounds.bottom.toFixed(4) + " " + latlonBounds.right.toFixed(4) + " " + latlonBounds.top.toFixed(4));
-            //$("#searchbox").val("");
-            var url = 'http://geoindex-plus.bibl.ulaval.ca/meta/csw2geojson.php';
+            var url = url_csv2geojson;
             url = url + '?xmin=' + latlonBounds.left.toFixed(4) + "&ymin=" + latlonBounds.bottom.toFixed(4) + "&xmax=" + latlonBounds.right.toFixed(4) + "&ymax=" + latlonBounds.top.toFixed(4);
-            if ($("#url").val() != "http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw" && $("#url").val() != ""){
+            if ($("#url").val() != url_service_csw && $("#url").val() != ""){
               url = url + "&url=" + $("#url").val();
             }
             if ($("#searchbox").val() != ""){
