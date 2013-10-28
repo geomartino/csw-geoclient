@@ -10,8 +10,7 @@ Powered by:
  * Défi GeoHack Montreal 2013  
  * Nicolas Gignac  
  * Stefano Biondo  
- * Martin Ouellet  
- * ??????
+ * Martin Ouellet
 
 Credits:
 
