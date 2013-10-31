@@ -445,12 +445,14 @@
                 header: '<h4 class="typeahead-header"><img src="img/globe.png" width="25" height="25">&nbsp;GeoNames</h4>'
               }
               ]).on('typeahead:selected', function (obj, datum) {
+                
                 if (datum.layer === 'Boroughs') {
                     map.fitBounds(datum.bounds);
                 };
                 if (datum.layer === 'GeoNames') {
                     
                     $("#searchbox").val("");
+                    $('#searchbox').typeahead('setQuery', '');
                     
                     map.setCenter(
                       new OpenLayers.LonLat(datum.lng, datum.lat).transform(
