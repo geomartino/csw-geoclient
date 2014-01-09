@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,14 +8,16 @@
     <title>CSW Geo Client</title>
 
     <!-- Core CSS -->
-    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <link href="css/typeahead.js-bootstrap.css" rel="stylesheet" type="text/css"> <!--https://github.com/jharding/typeahead.js-bootstrap.css-->
-    <link href="css/csw-geoclient.css" rel="stylesheet" type="text/css">
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+	<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link href="css/typeahead.js-bootstrap.css" rel="stylesheet" type="text/css"> <!--https://github.com/jharding/typeahead.js-bootstrap.css-->
+	<link href="css/csw-geoclient.css" rel="stylesheet" type="text/css">
     <!--link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" rel="stylesheet" type="text/css"-->
     <!--[if lte IE 8]>
         <!--link href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" rel="stylesheet" type="text/css"-->
-        <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+         <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome-ie7.min.css" rel="stylesheet">
+		<link href="css/typeahead.js-bootstrap.css" rel="stylesheet" type="text/css"> <!--https://github.com/jharding/typeahead.js-bootstrap.css-->
+		<link href="css/csw-geoclient.css" rel="stylesheet" type="text/css">
     <![endif]-->
 
     <!-- Custom styles for this template -->
@@ -103,6 +105,11 @@
             border-top-left-radius: 4px;
             border-bottom-left-radius: 4px;
         }
+		/* patch pour ie et ff */
+		.icon-search {
+			cursor: pointer;
+		}
+		/* fin patch pour ie et ff */
         .leaflet-popup-content {
             margin-top: 14px;
             margin-bottom: 0px;
@@ -143,7 +150,7 @@
                 float: left;
             }
             .search-container {
-                width: 150px;
+                width: 250px;
             }
             .leaflet-control-attribution {
                 display: none;
@@ -307,7 +314,7 @@
     <script type="text/javascript">
         var map;
         var activeRecords;
-        var url_csv2geojson = 'http://pregeoegl.msp.gouv.qc.ca/golocmsp/php/csw2geojson.php';
+        var url_csv2geojson = './php/csw2geojson.php';
         var url_service_csw = 'http://www.donnees.gouv.qc.ca/geonetwork/srv/eng/csw';
         
         $(document).ready(function() {
@@ -318,6 +325,17 @@
                 $('#sidebar').toggle();
                 $('a.toggle i').toggleClass('icon-globe icon-list');
             };
+			
+			if (navigator.appName == "Microsoft Internet Explorer") {
+				var oVal = jQuery.fn.val;
+				jQuery.fn.val = function() {
+					if(this.attr("placeholder") == oVal.apply(this, arguments)){
+						return '';
+					}
+					return oVal.apply(this, arguments);
+				};
+			}
+			
         });
         $(window).resize(function() {
             $('.tt-dropdown-menu').css('max-height', $('#container').height()-$('.navbar').height()-20);
@@ -354,7 +372,7 @@
           if ($("#url").val() != url_service_csw && $("#url").val() != ""){
             url = url + "&url=" + $("#url").val();
           }
-          url = url + "&topic=" + $(this)[0].id;
+          url = url + "&topic=" + $(this)[0].id + "&query=" + $("#searchbox").val();
           updateResults(url);
           
          });
@@ -418,54 +436,55 @@
         });
 
             
-            $('#searchbox').typeahead([
-             {
-                name: 'GeoNames',
-                remote: {
-                    url: 'http://ws.geonames.org/searchJSON?featureClass=P&maxRows=5&countryCode=CA&name_startsWith=%QUERY',
-                    beforeSend: function(jqXhr, settings) {
-                        //settings.url += '&east='+map.getBounds().getEast()+'&west='+map.getBounds().getWest()+'&north='+map.getBounds().getNorth()+'&south='+map.getBounds().getSouth();
-                    },
-                    filter: function(parsedResponse) {
-                        var dataset = [];
-                        for(i = 0; i < parsedResponse.geonames.length; i++) {
-                            dataset.push({
-                                value: parsedResponse.geonames[i].name,
-                                tokens: [parsedResponse.geonames[i].name],
-                                layer: 'GeoNames',
-                                lat: parsedResponse.geonames[i].lat,
-                                lng: parsedResponse.geonames[i].lng
-                            });
-                        }
-                        return dataset;
-                    }
-                },
-                minLength: 2,
-                limit: 5,
-                header: '<h4 class="typeahead-header"><img src="img/globe.png" width="25" height="25">&nbsp;GeoNames</h4>'
-              }
-              ]).on('typeahead:selected', function (obj, datum) {
-                
-                if (datum.layer === 'Boroughs') {
-                    map.fitBounds(datum.bounds);
-                };
-                if (datum.layer === 'GeoNames') {
-                    
-                    $("#searchbox").val("");
-                    $('#searchbox').typeahead('setQuery', '');
-                    
-                    map.setCenter(
-                      new OpenLayers.LonLat(datum.lng, datum.lat).transform(
-                      new OpenLayers.Projection("EPSG:4326"),
-                      map.getProjectionObject()
-                      ), 14
-                     );
-                };
-                
-            }).on('typeahead:initialized ', function () {
-                $('.tt-dropdown-menu').css('max-height', $('#container').height()-$('.navbar').height()-20);
-            });
-            
+		$('#searchbox').typeahead([
+		 {
+			name: 'GeoNames',
+			remote: {
+				url: 'http://ws.geonames.org/searchJSON?featureClass=P&maxRows=5&countryCode=CA&name_startsWith=%QUERY',
+				dataType: 'jsonp',
+				beforeSend: function(jqXhr, settings) {
+					//settings.url += '&east='+map.getBounds().getEast()+'&west='+map.getBounds().getWest()+'&north='+map.getBounds().getNorth()+'&south='+map.getBounds().getSouth();
+				},
+				filter: function(parsedResponse) {
+					var dataset = [];
+					for(i = 0; i < parsedResponse.geonames.length; i++) {
+						dataset.push({
+							value: parsedResponse.geonames[i].name,
+							tokens: [parsedResponse.geonames[i].name],
+							layer: 'GeoNames',
+							lat: parsedResponse.geonames[i].lat,
+							lng: parsedResponse.geonames[i].lng
+						});
+					}
+					return dataset;
+				}
+			},
+			minLength: 2,
+			limit: 5,
+			header: '<h4 class="typeahead-header"><img src="img/globe.png" width="25" height="25">&nbsp;GeoNames</h4>'
+		  }
+		  ]).on('typeahead:selected', function (obj, datum) {
+			
+			if (datum.layer === 'Boroughs') {
+				map.fitBounds(datum.bounds);
+			};
+			if (datum.layer === 'GeoNames') {
+				
+				$("#searchbox").val("");
+				$('#searchbox').typeahead('setQuery', '');
+				
+				map.setCenter(
+				  new OpenLayers.LonLat(datum.lng, datum.lat).transform(
+				  new OpenLayers.Projection("EPSG:4326"),
+				  map.getProjectionObject()
+				  ), 14
+				 );
+			};
+			
+		}).on('typeahead:initialized ', function () {
+			$('.tt-dropdown-menu').css('max-height', $('#container').height()-$('.navbar').height()-20);
+		});
+		
         // Placeholder hack for IE
         if (navigator.appName == "Microsoft Internet Explorer") {
             $("input").each( function () {
@@ -479,7 +498,7 @@
                     });
                 }
             });
-        }
+       }
         
         function getMapBounds(){
           var ll, ur, llgeo, urgeo;
@@ -507,8 +526,16 @@
          }
         
          $("#cadrer")[0].href = "javascript:  closeAndZoom(" + p_id + ");";
-         $("#uri")[0].href = "http://www.donnees.gouv.qc.ca?node=/donnees-details&id=" + activeRecords.features[p_id].properties.identifier;
-         
+		  
+		  // Condition unique pour affichage de la page pour données ouvertes : www.donnees.gouv.qc.ca
+		  if  ($("#url").val().indexOf("www.donnees.gouv.qc.ca") != -1)
+		  {
+            $("#uri")[0].href = "http://www.donnees.gouv.qc.ca?node=/donnees-details&id=" + activeRecords.features[p_id].properties.identifier;
+			// Pour les autres sites, ouvre la page du CSW de la fiche.
+          }else
+		  {
+            $("#uri")[0].href = $("#url").val() + "?SERVICE=CSW&VERSION=2.0.2&REQUEST=GetRecordById&outputSchema=csw:IsoRecord&ID=" + activeRecords.features[p_id].properties.identifier + "&elementSetName=full" ;
+          }
         }
         
         function closeAndZoom(p_id){
